@@ -2,7 +2,8 @@
 
 snippetman.jar:
 % content snippetman %content/ contentaccessible=yes
-  content/                    (ui/build/**/**)
+  content/                    (ui/dist/**/**)
+  content/index.xhtml         (ui/dist/index.html)
 
 [localization] @AB_CD@.jar:
   branding                                          (en-US/**/*.ftl)
