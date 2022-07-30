@@ -22,8 +22,10 @@ function indexRenamePlugin() {
 const config = defineConfig({
   base: "./",
   plugins: [react(), indexRenamePlugin()],
+  build: {
+    sourcemap: "inline",
+    minify: false,
+  },
 });
-
-console.log(config);
 
 export default config;

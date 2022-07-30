@@ -13,7 +13,13 @@
     <title>Vite + React + TS</title>
   </head>
   <html:body>
-    <html:div id="root"></html:div>
+    <div id="root"></div>
     <script type="module" src="src/main.tsx"></script>
+
+    <script>
+      const { DevtoolsServer } = ChromeUtils.import(
+      "resource://app/modules/DevtoolsServer.jsm" ); const devtools =
+      DevtoolsServer.get(); devtools.start();
+    </script>
   </html:body>
 </html>

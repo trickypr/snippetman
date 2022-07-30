@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
@@ -8,12 +8,16 @@ const { XPCOMUtils } = ChromeUtils.importESModule(
 
 let lazy = {};
 XPCOMUtils.defineLazyModuleGetters(lazy, {
-  DevtoolsServer: "resource:///modules/DevtoolsServer.jsm",
+  DevtoolsServer: "resource://app/modules/DevtoolsServer.jsm",
 });
 
 function App() {
   const [count, setCount] = useState(0);
-  console.log(reactLogo);
+
+  useEffect(() => {
+    const devtools = lazy.DevtoolsServer.get();
+    devtools.start();
+  }, []);
 
   return (
     <div className="App">
@@ -35,14 +39,7 @@ function App() {
           count is {count}
         </button>
 
-        <button
-          onClick={() => {
-            const devtools = new lazy.DevtoolsServer();
-            devtools.start();
-          }}
-        >
-          Open dev tools
-        </button>
+        <button>Open dev tools</button>
 
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
