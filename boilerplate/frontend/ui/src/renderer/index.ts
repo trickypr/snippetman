@@ -1,5 +1,6 @@
 import { diff } from "deep-object-diff";
 import Reconciler, { HostConfig, OpaqueHandle } from "react-reconciler";
+import { xulElements } from "./xulElements";
 
 type Type = string;
 type Props = { [key: string]: any };
@@ -51,9 +52,11 @@ const hostConfig: HostConfig<
     hostContext: any,
     internalHandle: any
   ) {
-    const element = document.createElement(type);
+    if (xulElements.includes(type)) {
+      return document.createXULElement(type);
+    }
 
-    return element;
+    return document.createElement(type);
   },
   createTextInstance(text, rootContainer, hostContext, internalHandle) {
     return document.createTextNode(text);
