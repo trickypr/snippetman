@@ -1,3 +1,4 @@
+import { diff } from "deep-object-diff";
 import Reconciler, { HostConfig, OpaqueHandle } from "react-reconciler";
 
 type Type = string;
@@ -41,6 +42,8 @@ const hostConfig: HostConfig<
   TimeoutHandle,
   NoTimeout
 > = {
+  supportsMicrotask: true,
+
   createInstance(
     type,
     props,
@@ -49,10 +52,6 @@ const hostConfig: HostConfig<
     internalHandle: any
   ) {
     const element = document.createElement(type);
-
-    for (const prop in props) {
-      element.setAttribute(prop, props[prop]);
-    }
 
     return element;
   },
@@ -81,7 +80,94 @@ const hostConfig: HostConfig<
     }
   },
   finalizeInitialChildren(instance, type, props, rootContainer, hostContext) {
-    return false;
+    return true;
+  },
+  commitMount(instance, type, props, internalInstanceHandle) {
+    for (const prop in props) {
+      if (typeof props[prop] === "function") {
+        instance.addEventListener(
+          prop.replace("on", "").toLowerCase(),
+          props[prop]
+        );
+
+        continue;
+      }
+
+      let propName = prop;
+
+      // We should not handle children here
+      if (prop == "children") continue;
+      if (prop == "className") propName = "class";
+
+      instance.setAttribute(propName, props[prop]);
+    }
+  },
+  detachDeletedInstance(node) {
+    node.remove();
+    return null;
+  },
+  commitTextUpdate(textInstance, oldText, newText) {
+    textInstance.nodeValue = newText;
+  },
+  prepareUpdate(
+    instance,
+    type,
+    oldPropsImut,
+    newPropsImut,
+    rootContainer,
+    hostContext
+  ) {
+    let oldProps = { ...oldPropsImut, children: undefined };
+    let newProps = { ...newPropsImut, children: undefined };
+
+    const diffs = diff(oldProps, newProps);
+
+    if (Object.keys(diffs).length === 0) {
+      return null;
+    }
+
+    return diffs;
+  },
+  commitUpdate(
+    instance,
+    updatePayload,
+    type,
+    prevProps,
+    nextProps,
+    internalHandle
+  ) {
+    for (const updated in updatePayload) {
+      let propName = updated;
+
+      if (propName == "className") {
+        propName = "class";
+      }
+
+      if (typeof updatePayload[updated] === "undefined") {
+        instance.removeAttribute(propName);
+        continue;
+      }
+
+      const newVal = nextProps[updated];
+
+      if (typeof newVal === "function") {
+        instance.removeEventListener(
+          propName.replace("on", "").toLowerCase(),
+          prevProps[updated]
+        );
+        instance.addEventListener(
+          propName.replace("on", "").toLowerCase(),
+          newVal
+        );
+
+        continue;
+      }
+
+      instance.setAttribute(propName, newVal);
+    }
+  },
+  removeChild(parentInstance, child) {
+    parentInstance.removeChild(child);
   },
 
   // We do not care about root host contexts

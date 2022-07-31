@@ -5,6 +5,7 @@ specifiers:
   '@types/react-dom': ^18.0.6
   '@types/react-reconciler': ^0.28.0
   '@vitejs/plugin-react': ^2.0.0
+  deep-object-diff: ^1.1.7
   react: ^18.2.0
   react-dom: ^18.2.0
   react-reconciler: ^0.29.0
@@ -14,6 +15,7 @@ specifiers:
 
 dependencies:
   '@types/react-reconciler': 0.28.0
+  deep-object-diff: 1.1.7
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-reconciler: 0.29.0_react@18.2.0
@@ -431,6 +433,10 @@ packages:
     dependencies:
       ms: 2.1.2
     dev: true
+
+  /deep-object-diff/1.1.7:
+    resolution: {integrity: sha512-QkgBca0mL08P6HiOjoqvmm6xOAl2W6CT2+34Ljhg0OeFan8cwlcdq8jrLKsBBuUFAZLsN5b6y491KdKEoSo9lg==}
+    dev: false
 
   /electron-to-chromium/1.4.206:
     resolution: {integrity: sha512-h+Fadt1gIaQ06JaIiyqPsBjJ08fV5Q7md+V8bUvQW/9OvXfL2LRICTz2EcnnCP7QzrFTS6/27MRV6Bl9Yn97zA==}

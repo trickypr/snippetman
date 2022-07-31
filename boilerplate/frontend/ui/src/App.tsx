@@ -2,21 +2,22 @@ import { useState, useEffect } from "react";
 import reactLogo from "./assets/react.svg";
 import "./App.css";
 
-const { XPCOMUtils } = ChromeUtils.importESModule(
-  "resource://gre/modules/XPCOMUtils.sys.mjs"
-);
+// const { XPCOMUtils } = ChromeUtils.importESModule(
+//   "resource://gre/modules/XPCOMUtils.sys.mjs"
+// );
 
-let lazy = {};
-XPCOMUtils.defineLazyModuleGetters(lazy, {
-  DevtoolsServer: "resource://app/modules/DevtoolsServer.jsm",
-});
+// let lazy = {};
+// XPCOMUtils.defineLazyModuleGetters(lazy, {
+//   DevtoolsServer: "resource://app/modules/DevtoolsServer.jsm",
+// });
 
 function App() {
   const [count, setCount] = useState(0);
+  const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
-    const devtools = lazy.DevtoolsServer.get();
-    devtools.start();
+    // const devtools = lazy.DevtoolsServer.get();
+    // devtools.start();
   }, []);
 
   return (
@@ -39,11 +40,20 @@ function App() {
           count is {count}
         </button>
 
-        <button>Open dev tools</button>
+        <button
+          onClick={() => {
+            setRevealed(!revealed);
+          }}
+          className={revealed ? "revealed" : ""}
+        >
+          Open dev tools
+        </button>
 
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        {revealed && (
+          <p>
+            Edit <code>src/App.tsx</code> and save to test HMR
+          </p>
+        )}
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
