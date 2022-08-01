@@ -96,11 +96,11 @@ const hostConfig: HostConfig<
         continue;
       }
 
-      let propName = prop;
+      let propName = prop.toLowerCase();
 
       // We should not handle children here
       if (prop == "children") continue;
-      if (prop == "className") propName = "class";
+      if (prop == "classname") propName = "class";
 
       instance.setAttribute(propName, props[prop]);
     }
@@ -140,9 +140,9 @@ const hostConfig: HostConfig<
     internalHandle
   ) {
     for (const updated in updatePayload) {
-      let propName = updated;
+      let propName = updated.toLowerCase();
 
-      if (propName == "className") {
+      if (propName == "classname") {
         propName = "class";
       }
 

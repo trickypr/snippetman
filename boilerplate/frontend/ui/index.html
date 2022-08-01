@@ -7,19 +7,25 @@
   height="300"
 >
   <head>
+    <link rel="stylesheet" href="chrome://global/content/xul.css" />
+    <link rel="stylesheet" href="chrome://global/content/minimal-xul.css" />
+    <link rel="stylesheet" href="chrome://global/skin/global.css" />
+
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React + TS</title>
   </head>
-  <html:body>
-    <div id="root"></div>
+  <body xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    <hbox id="root" flex="1"></hbox>
     <script type="module" src="src/main.tsx"></script>
 
     <script>
       const { DevtoolsServer } = ChromeUtils.import(
-      "resource://app/modules/DevtoolsServer.jsm" ); const devtools =
-      DevtoolsServer.get(); devtools.start();
+        "resource://app/modules/DevtoolsServer.jsm"
+      );
+      const devtools = DevtoolsServer.get();
+      devtools.start();
     </script>
-  </html:body>
+  </body>
 </html>
