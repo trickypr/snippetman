@@ -173,6 +173,10 @@ const hostConfig: HostConfig<
     parentInstance.removeChild(child);
   },
 
+  getPublicInstance(instance) {
+    return instance;
+  },
+
   // We do not care about root host contexts
   getRootHostContext(rootContainer) {
     return null;

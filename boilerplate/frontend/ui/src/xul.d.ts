@@ -11,6 +11,8 @@ type CustomElement<T> = Partial<
       children: any;
       id: string;
       className: string;
+      ref: any;
+      key?: string | number;
     } & XULElement
 >;
 
