@@ -1,0 +1,13 @@
+.listItem {
+  margin: 8px;
+  padding: 16px;
+}
+
+.listItem hbox {
+  font-weight: bold;
+  padding-bottom: 8px;
+}
+
+.listItem hbox div {
+  margin-inline: 0 8px;
+}

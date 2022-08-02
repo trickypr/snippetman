@@ -1,7 +1,9 @@
+import { nanoid } from "@reduxjs/toolkit";
 import { Snippet } from "../slicers/snippets";
 
 export const sampleSnippets: Snippet[] = [
   {
+    id: nanoid(),
     title: ".prettierrc",
     tags: ["prettier", "webdev", "tooling"],
 
@@ -16,6 +18,7 @@ export const sampleSnippets: Snippet[] = [
     ),
   },
   {
+    id: nanoid(),
     title: "Gecko Vite Config",
     tags: ["gecko", "tooling"],
 

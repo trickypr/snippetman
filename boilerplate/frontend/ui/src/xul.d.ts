@@ -1,7 +1,7 @@
 import { DOMAttributes } from "react";
 
 type XULElement = {
-  flex?: "1";
+  flex?: string | number;
   label?: string;
 };
 
@@ -26,16 +26,17 @@ declare global {
       treecols: CustomElement<{}>;
 
       treecol: CustomElement<{
-        flex?: "1";
         hideHeader?: Boolean;
       }>;
 
-      treechildren: CustomElement<{ flex?: "1" }>;
+      treechildren: CustomElement<{}>;
       treeitem: CustomElement<{}>;
       treerow: CustomElement<{}>;
       treecell: CustomElement<{}>;
 
       vbox: CustomElement<{}>;
+      hbox: CustomElement<{}>;
+      spacer: CustomElement<{}>;
     }
   }
 }

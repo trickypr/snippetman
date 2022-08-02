@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { sampleSnippets } from "../sampleData/snippet";
 
 export interface Snippet {
+  id: string;
   title: string;
   tags: string[];
 

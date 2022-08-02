@@ -1,19 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- The "global.css" stylesheet is imported first to allow other stylesheets to
+     override rules using selectors with the same specificity. This applies to
+     both "content" and "skin" packages, which bug 1385444 will unify later. -->
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+
+<?xml-stylesheet href="chrome://global/content/xul.css" type="text/css"?>
+<?xml-stylesheet href="chrome://global/content/minimal-xul.css" type="text/css"?>
+
 <html
   id="main"
   xmlns:html="http://www.w3.org/1999/xhtml"
   xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
   xmlns="http://www.w3.org/1999/xhtml"
-  width="300"
-  height="300"
+  persist="screenX screenY width height sizemode"
 >
   <head>
-    <link rel="stylesheet" href="chrome://global/content/xul.css" />
-    <link rel="stylesheet" href="chrome://global/content/minimal-xul.css" />
-    <link rel="stylesheet" href="chrome://global/skin/global.css" />
-
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mozilla toolkit + React</title>
   </head>
   <body xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">

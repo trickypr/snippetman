@@ -1,14 +1,14 @@
 import React from "react";
 
 import "./App.css";
+import { SnippetList } from "./components/SnippetList";
+import { Tree } from "./components/Tree";
 
 function App() {
   return (
     <>
-      <vbox>
-        <h1>Live reloading!</h1>
-        <p>Directly within the app!</p>
-      </vbox>
+      <Tree />
+      <SnippetList />
     </>
   );
 }

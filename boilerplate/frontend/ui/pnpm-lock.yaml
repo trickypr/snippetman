@@ -9,6 +9,7 @@ specifiers:
   css-loader: ^6.7.1
   deep-object-diff: ^1.1.7
   esbuild-loader: ^2.19.0
+  nanoid: ^4.0.0
   react: ^18.2.0
   react-dom: ^18.2.0
   react-reconciler: ^0.29.0
@@ -24,6 +25,7 @@ dependencies:
   '@reduxjs/toolkit': 1.8.3_kkwg4cbsojnjnupd3btipussee
   '@types/react-reconciler': 0.28.0
   deep-object-diff: 1.1.7
+  nanoid: 4.0.0
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-reconciler: 0.29.0_react@18.2.0
@@ -1787,6 +1789,12 @@ packages:
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
     dev: true
+
+  /nanoid/4.0.0:
+    resolution: {integrity: sha512-IgBP8piMxe/gf73RTQx7hmnhwz0aaEXYakvqZyE302IXW3HyVNhdNGC+O2MwMAVhLEnvXlvKtGbtJf6wvHihCg==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
 
   /negotiator/0.6.3:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
