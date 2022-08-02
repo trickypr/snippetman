@@ -18,7 +18,9 @@
   </head>
   <body xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
     <hbox id="root" flex="1"></hbox>
-    <script type="module" src="src/main.tsx"></script>
+
+    <script src="./runtime.js"></script>
+    <script src="./main.js"></script>
 
     <script>
       const { DevtoolsServer } = ChromeUtils.import(

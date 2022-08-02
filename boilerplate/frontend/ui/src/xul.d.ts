@@ -34,6 +34,8 @@ declare global {
       treeitem: CustomElement<{}>;
       treerow: CustomElement<{}>;
       treecell: CustomElement<{}>;
+
+      vbox: CustomElement<{}>;
     }
   }
 }

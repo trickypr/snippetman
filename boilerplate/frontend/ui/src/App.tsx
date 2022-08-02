@@ -1,12 +1,14 @@
-/// <reference path="./xul.d.ts" />
+import React from "react";
 
 import "./App.css";
-import { Tree } from "./components/Tree";
 
 function App() {
   return (
     <>
-      <Tree />
+      <vbox>
+        <h1>Live reloading!</h1>
+        <p>Directly within the app!</p>
+      </vbox>
     </>
   );
 }

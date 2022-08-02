@@ -15,6 +15,7 @@ export default {
   stats: "errors-only",
   devServer: {
     static: "./dist",
+    allowedHosts: ["all"],
     devMiddleware: {
       writeToDisk: true,
     },
