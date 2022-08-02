@@ -1,22 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { copyFile, writeFile, readFile } from "fs/promises";
+import { writeFile, readFile, cp, access, mkdir } from "fs/promises";
+import { dirname, join, relative } from "path";
 import glob from "tiny-glob";
-
-function indexRenamePlugin() {
-  return {
-    name: "rename-index",
-    closeBundle: async () => {
-      for (const indexJs of await glob("./dist/assets/index.*.js")) {
-        await copyFile(indexJs, "./dist/assets/index.js");
-      }
-
-      for (const indexJs of await glob("./dist/assets/index.*.css")) {
-        await copyFile(indexJs, "./dist/assets/index.css");
-      }
-    },
-  };
-}
 
 const headers = [];
 

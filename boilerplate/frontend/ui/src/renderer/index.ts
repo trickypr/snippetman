@@ -96,13 +96,13 @@ const hostConfig: HostConfig<
         continue;
       }
 
-      let propName = prop.toLowerCase();
+      let propName = prop;
 
       // We should not handle children here
       if (prop == "children") continue;
-      if (prop == "classname") propName = "class";
+      if (prop == "className") propName = "class";
 
-      instance.setAttribute(propName, props[prop]);
+      instance.setAttribute(propName.toLowerCase(), props[prop]);
     }
   },
   detachDeletedInstance(node) {
@@ -140,9 +140,9 @@ const hostConfig: HostConfig<
     internalHandle
   ) {
     for (const updated in updatePayload) {
-      let propName = updated.toLowerCase();
+      let propName = updated;
 
-      if (propName == "classname") {
+      if (propName == "className") {
         propName = "class";
       }
 
@@ -166,7 +166,7 @@ const hostConfig: HostConfig<
         continue;
       }
 
-      instance.setAttribute(propName, newVal);
+      instance.setAttribute(propName.toLowerCase(), newVal);
     }
   },
   removeChild(parentInstance, child) {

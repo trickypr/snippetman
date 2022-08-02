@@ -1,0 +1,7 @@
+.sidebar {
+  margin: 0;
+}
+
+.sidebar treecell {
+  text-transform: capitalize;
+}

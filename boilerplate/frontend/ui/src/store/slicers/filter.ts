@@ -33,7 +33,6 @@ export const filterSlice = createSlice({
     },
     setPrimaryFilter(state, filter: PayloadAction<PrimaryFilter>) {
       state.primaryFilter = filter.payload;
-      console.log(filter.payload);
     },
   },
 });

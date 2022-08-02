@@ -6,10 +6,17 @@ import {
   setPrimaryFilter,
 } from "../store/slicers/filter";
 import { RootState } from "../store/store";
+import { toTitleCase } from "../utils/primitives";
+
+import styles from "./Tree.module.css";
 
 export function Tree() {
   const treeRef = useRef(null);
   const dispatch = useDispatch();
+
+  const languages = useSelector((state: RootState) => state.snippet.languages);
+  const tags = useSelector((state: RootState) => state.snippet.tags);
+
   const currentFilter = useSelector(
     (state: RootState) => state.filter.primaryFilter
   );
@@ -21,27 +28,13 @@ export function Tree() {
         type: PrimaryFilterType.ALL,
       },
     },
-    {
-      label: "Lang: TS",
+    ...languages.map((language) => ({
+      label: toTitleCase(language),
       value: {
         type: PrimaryFilterType.LANG,
-        value: "ts",
+        value: language,
       },
-    },
-    {
-      label: "Lang: JS",
-      value: {
-        type: PrimaryFilterType.LANG,
-        value: "js",
-      },
-    },
-    {
-      label: "Tag: abcd",
-      value: {
-        type: PrimaryFilterType.TAG,
-        value: "abcd",
-      },
-    },
+    })),
   ];
 
   // We want to make sure the tree is always in sync with what is in the current
@@ -63,7 +56,7 @@ export function Tree() {
   return (
     <tree
       flex="1"
-      className="plain"
+      className={`plain ${styles.sidebar}`}
       hideColumnPicker={true}
       ref={treeRef}
       onSelect={(event) => {
@@ -73,7 +66,7 @@ export function Tree() {
       }}
     >
       <treecols>
-        <treecol id="nameColumn" label="Name" flex="1" hideHeader={true} />
+        <treecol id="nameColumn" flex="1" hideHeader={true} />
       </treecols>
 
       <treechildren flex="1">
