@@ -33,6 +33,18 @@ declare global {
       treeitem: CustomElement<{}>;
       treerow: CustomElement<{}>;
       treecell: CustomElement<{}>;
+      treeseparator: CustomElement<{}>;
+
+      listbox: CustomElement<{}>;
+      listcols: CustomElement<{}>;
+      listcol: CustomElement<{}>;
+      listitem: CustomElement<{}>;
+      listcell: CustomElement<{}>;
+      listhead: CustomElement<{}>;
+      listheader: CustomElement<{}>;
+
+      richlistbox: CustomElement<{}>;
+      richlistitem: CustomElement<{}>;
 
       vbox: CustomElement<{}>;
       hbox: CustomElement<{}>;

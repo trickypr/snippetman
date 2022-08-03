@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -29,11 +28,30 @@ export function Tree() {
         type: PrimaryFilterType.ALL,
       },
     },
+    {
+      label: "Languages",
+      value: {
+        type: PrimaryFilterType.HEADER,
+      },
+    },
     ...languages.map((language) => ({
       label: toTitleCase(language),
       value: {
         type: PrimaryFilterType.LANG,
         value: language,
+      },
+    })),
+    {
+      label: "Tags",
+      value: {
+        type: PrimaryFilterType.HEADER,
+      },
+    },
+    ...tags.map((tag) => ({
+      label: toTitleCase(tag),
+      value: {
+        type: PrimaryFilterType.TAG,
+        value: tag,
       },
     })),
   ];
@@ -71,13 +89,20 @@ export function Tree() {
       </treecols>
 
       <treechildren flex="1">
-        {tree.map((item) => (
-          <treeitem key={item.label + item.value}>
-            <treerow>
-              <treecell label={item.label} />
-            </treerow>
-          </treeitem>
-        ))}
+        {tree.map((item) => {
+          if (item.value.type == PrimaryFilterType.HEADER) {
+            // TODO: show heading text here
+            return <treeseparator key={item.label + item.value} />;
+          }
+
+          return (
+            <treeitem key={item.label + item.value}>
+              <treerow>
+                <treecell label={item.label} />
+              </treerow>
+            </treeitem>
+          );
+        })}
       </treechildren>
     </tree>
   );

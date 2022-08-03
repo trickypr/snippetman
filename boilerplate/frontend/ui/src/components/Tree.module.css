@@ -5,3 +5,7 @@
 .sidebar treecell {
   text-transform: capitalize;
 }
+
+.treeHeader {
+  pointer-events: none;
+}

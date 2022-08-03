@@ -16,29 +16,3 @@ body {
   width: 100%;
   overflow: clip;
 }
-
-/* TODO: Figure out why XUL and other UA stylesheets are applying */
-
-* {
-  -moz-user-focus: ignore;
-  user-select: none;
-  display: -moz-box;
-  box-sizing: border-box;
-}
-
-base,
-basefont,
-datalist,
-head,
-link,
-meta,
-noembed,
-noframes,
-param,
-rp,
-script,
-style,
-template,
-title {
-  display: none;
-}

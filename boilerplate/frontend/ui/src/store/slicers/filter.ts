@@ -4,6 +4,7 @@ export enum PrimaryFilterType {
   ALL = "all",
   TAG = "tag",
   LANG = "language",
+  HEADER = "header",
 }
 
 export interface PrimaryFilter {
