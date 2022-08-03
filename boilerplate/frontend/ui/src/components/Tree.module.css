@@ -1,5 +1,7 @@
 .sidebar {
   margin: 0;
+  min-width: 100px;
+  max-width: 300px;
 }
 
 .sidebar treecell {

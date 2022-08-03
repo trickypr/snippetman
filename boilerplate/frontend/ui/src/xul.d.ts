@@ -44,15 +44,22 @@ declare global {
       listheader: CustomElement<{}>;
 
       richlistbox: CustomElement<{}>;
-      richlistitem: CustomElement<{}>;
+      richlistitem: CustomElement<{
+        orient: "horizontal" | "vertical";
+      }>;
 
       vbox: CustomElement<{}>;
       hbox: CustomElement<{}>;
       spacer: CustomElement<{}>;
+      /**
+       * Allows XUL elements on either side to be resized
+       */
+      splitter: CustomElement<{}>;
 
       description: CustomElement<{
         value: string;
         tooltipText?: string;
+        crop: "center" | "end" | "start";
       }>;
     }
   }

@@ -9,7 +9,9 @@ function App() {
   return (
     <>
       <Tree />
+      <splitter />
       <SnippetList />
+      <splitter />
       <Snippet />
     </>
   );

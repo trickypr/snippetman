@@ -1,3 +1,7 @@
+.snippetList {
+  min-width: 200px;
+}
+
 .listItem {
   padding: 16px;
 }

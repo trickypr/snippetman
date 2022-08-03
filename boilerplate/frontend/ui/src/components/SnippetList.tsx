@@ -11,22 +11,28 @@ import styles from "./SnippetList.module.css";
 
 function SnippetListItem({ snippet }: { snippet: Snippet }) {
   return (
-    <richlistitem>
-      <vbox className={styles.listItem} flex={1}>
-        <hbox flex={1}>
-          <description className={styles.listItemTitle} value={snippet.title} />
-          <spacer flex={8} />
-          <description
-            className={styles.listItemLanguages}
-            value={snippet.lang}
-          />
-        </hbox>
-
+    <richlistitem orient="vertical" className={styles.listItem}>
+      <hbox>
         <description
-          className={styles.listItemTags}
-          value={snippet.tags.join(", ")}
+          className={styles.listItemTitle}
+          value={snippet.title}
+          crop="end"
+          flex={1}
         />
-      </vbox>
+        <spacer flex={8} />
+        <description
+          className={styles.listItemLanguages}
+          value={snippet.lang}
+          flex={1}
+        />
+      </hbox>
+
+      <description
+        className={styles.listItemTags}
+        value={snippet.tags.join(", ")}
+        crop="end"
+        flex={1}
+      />
     </richlistitem>
   );
 }
@@ -42,6 +48,8 @@ export function SnippetList() {
       <input type="text" name="Search" id="listsearch" />
 
       <richlistbox
+        flex={1}
+        className={styles.snippetList}
         onSelect={(event) => {
           if (!listBoxRef.current) return;
 
