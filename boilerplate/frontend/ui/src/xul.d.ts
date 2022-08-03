@@ -49,6 +49,11 @@ declare global {
       vbox: CustomElement<{}>;
       hbox: CustomElement<{}>;
       spacer: CustomElement<{}>;
+
+      description: CustomElement<{
+        value: string;
+        tooltipText?: string;
+      }>;
     }
   }
 }

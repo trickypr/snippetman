@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Snippet } from "../store/slicers/snippets";
 import { RootState } from "../store/store";
 
@@ -7,15 +7,23 @@ import styles from "./SnippetList.module.css";
 
 function SnippetListItem({ snippet }: { snippet: Snippet }) {
   return (
-    <vbox className={styles.listItem}>
-      <hbox flex={1}>
-        <div>{snippet.title}</div>
-        <spacer flex={8} />
-        <div>{snippet.lang}</div>
-      </hbox>
+    <richlistitem>
+      <vbox className={styles.listItem} flex={1}>
+        <hbox flex={1}>
+          <description className={styles.listItemTitle} value={snippet.title} />
+          <spacer flex={8} />
+          <description
+            className={styles.listItemLanguages}
+            value={snippet.lang}
+          />
+        </hbox>
 
-      <div>{snippet.tags.join(", ")}</div>
-    </vbox>
+        <description
+          className={styles.listItemTags}
+          value={snippet.tags.join(", ")}
+        />
+      </vbox>
+    </richlistitem>
   );
 }
 
@@ -26,9 +34,11 @@ export function SnippetList() {
     <vbox>
       <input type="text" name="Search" id="listsearch" />
 
-      {snippets.map((snippet) => (
-        <SnippetListItem key={snippet.id} snippet={snippet} />
-      ))}
+      <richlistbox>
+        {snippets.map((snippet) => (
+          <SnippetListItem key={snippet.id} snippet={snippet} />
+        ))}
+      </richlistbox>
     </vbox>
   );
 }

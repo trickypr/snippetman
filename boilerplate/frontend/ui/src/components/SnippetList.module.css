@@ -1,10 +1,12 @@
 .listItem {
-  margin: 8px;
   padding: 16px;
 }
 
-.listItem hbox {
+.listItemTitle {
   font-weight: bold;
+}
+
+.listItem hbox {
   padding-bottom: 8px;
 }
 
