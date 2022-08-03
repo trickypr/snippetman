@@ -12,6 +12,11 @@ export interface Snippet {
 
 export interface SnippetState {
   snippets: Snippet[];
+  /**
+   * The id of the selected snippet
+   */
+  selectedSnippetId?: string;
+
   languages: string[];
   tags: string[];
 }
@@ -26,8 +31,15 @@ const initialState: SnippetState = {
 export const snippetSlice = createSlice({
   name: "snippet",
   initialState,
-  reducers: {},
+  reducers: {
+    selectSnippet(state, action) {
+      state.selectedSnippetId = action.payload;
+    },
+    clearSnippet(state) {
+      state.selectedSnippetId = undefined;
+    },
+  },
 });
 
-export const {} = snippetSlice.actions;
+export const { selectSnippet, clearSnippet } = snippetSlice.actions;
 export const snippetReducer = snippetSlice.reducer;
