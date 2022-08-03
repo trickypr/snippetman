@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "webpack serve --open",
+    "dev": "webpack serve",
     "build": "webpack"
   },
   "dependencies": {
@@ -16,14 +16,18 @@
     "react-dom": "^18.2.0",
     "react-reconciler": "^0.29.0",
     "react-redux": "^8.0.2",
-    "tiny-glob": "^0.2.9"
+    "tiny-glob": "^0.2.9",
+    "ts-loader": "^9.3.1"
   },
   "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.7",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.1",
     "esbuild-loader": "^2.19.0",
+    "react-refresh": "^0.14.0",
+    "react-refresh-typescript": "^2.0.7",
     "style-loader": "^3.3.1",
     "typescript": "^4.6.4",
     "webpack": "^5.74.0",

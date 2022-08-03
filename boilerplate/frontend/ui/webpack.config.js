@@ -1,6 +1,8 @@
 import { resolve } from "path";
 import * as url from "url";
 import CopyPlugin from "copy-webpack-plugin";
+import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import ReactRefreshTypeScript from "react-refresh-typescript";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -15,6 +17,7 @@ export default {
   stats: "errors-only",
   devServer: {
     static: "./dist",
+    hot: true,
     allowedHosts: ["all"],
     devMiddleware: {
       writeToDisk: true,
@@ -24,10 +27,12 @@ export default {
     rules: [
       {
         test: /\.tsx?$/,
-        loader: "esbuild-loader",
+        loader: "ts-loader",
         options: {
-          loader: "tsx", // Or 'ts' if you don't need tsx
-          target: "es2019",
+          getCustomTransformers: () => ({
+            before: [ReactRefreshTypeScript()],
+          }),
+          transpileOnly: true,
         },
       },
       {
@@ -52,6 +57,7 @@ export default {
     ],
   },
   plugins: [
+    new ReactRefreshPlugin(),
     new CopyPlugin({
       patterns: [{ from: "public" }],
     }),
