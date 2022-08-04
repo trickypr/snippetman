@@ -1,8 +1,6 @@
 import { resolve } from "path";
 import * as url from "url";
 import CopyPlugin from "copy-webpack-plugin";
-import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
-import ReactRefreshTypeScript from "react-refresh-typescript";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -14,7 +12,6 @@ export default {
   },
   mode: "development",
   devtool: "inline-source-map",
-  stats: "errors-only",
   devServer: {
     static: "./dist",
     hot: true,
@@ -30,7 +27,7 @@ export default {
         loader: "ts-loader",
         options: {
           getCustomTransformers: () => ({
-            before: [ReactRefreshTypeScript()],
+            before: [],
           }),
           transpileOnly: true,
         },
@@ -57,15 +54,16 @@ export default {
     ],
   },
   plugins: [
-    new ReactRefreshPlugin(),
     new CopyPlugin({
       patterns: [{ from: "public" }],
     }),
   ],
-  optimization: {
-    runtimeChunk: "single",
-  },
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
 };

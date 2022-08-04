@@ -19,18 +19,17 @@
     <meta charset="UTF-8" />
     <title>Snippetman</title>
   </head>
-  <body xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+  <html:body
+    xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+  >
     <hbox id="root" flex="1"></hbox>
 
-    <script src="./runtime.js"></script>
     <script src="./main.js"></script>
 
     <script>
       const { DevtoolsServer } = ChromeUtils.import(
-        "resource://app/modules/DevtoolsServer.jsm"
-      );
-      const devtools = DevtoolsServer.get();
-      devtools.start();
+      "resource://app/modules/DevtoolsServer.jsm" ); const devtools =
+      DevtoolsServer.get(); devtools.start();
     </script>
-  </body>
+  </html:body>
 </html>
