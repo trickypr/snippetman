@@ -21,7 +21,7 @@ function SnippetInternals() {
 
   return (
     <vbox>
-      <h1>Snippet</h1>
+      <h1>Snippet C</h1>
       <p>{selectedSnippetId}</p>
     </vbox>
   );

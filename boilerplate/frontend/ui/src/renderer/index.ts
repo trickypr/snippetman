@@ -201,6 +201,16 @@ const hostConfig: HostConfig<
 
 const renderer = Reconciler(hostConfig);
 
+export function injectHotReload() {
+  const devTools = renderer.injectIntoDevTools({
+    findFiberByHostInstance: () => console.log("TODO: findFiberByHostInstance"),
+    bundleType: 1,
+    rendererPackageName: "react-xul-renderer",
+    version: "18.0.15",
+  });
+  console.log(devTools);
+}
+
 export function render(component: any, container: any) {
   let isStrictMode = false;
   let concurrentUpdatesByDefaultOverride = false;

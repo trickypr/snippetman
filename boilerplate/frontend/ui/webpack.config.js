@@ -1,6 +1,8 @@
 import { resolve } from "path";
 import * as url from "url";
 import CopyPlugin from "copy-webpack-plugin";
+import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
+import TSReactRefresh from "react-refresh-typescript";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -9,15 +11,19 @@ export default {
   output: {
     path: resolve(__dirname, "dist"),
     filename: "[name].js",
+    clean: true,
   },
   mode: "development",
   devtool: "inline-source-map",
   devServer: {
-    static: "./dist",
+    // static: "./dist",
     hot: true,
     allowedHosts: ["all"],
     devMiddleware: {
       writeToDisk: true,
+    },
+    client: {
+      logging: "verbose",
     },
   },
   module: {
@@ -27,7 +33,7 @@ export default {
         loader: "ts-loader",
         options: {
           getCustomTransformers: () => ({
-            before: [],
+            before: [TSReactRefresh()],
           }),
           transpileOnly: true,
         },
@@ -54,16 +60,18 @@ export default {
     ],
   },
   plugins: [
+    new ReactRefreshPlugin({
+      overlay: {
+        sockPort: 8080,
+        sockHost: "localhost",
+        sockProtocol: "http",
+      },
+    }),
     new CopyPlugin({
       patterns: [{ from: "public" }],
     }),
   ],
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
-  },
-  optimization: {
-    splitChunks: {
-      chunks: "all",
-    },
   },
 };

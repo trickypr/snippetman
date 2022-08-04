@@ -2,7 +2,7 @@ import React from "react";
 import { Provider } from "react-redux";
 
 import App from "./App";
-import { render } from "./renderer";
+import { injectHotReload, render } from "./renderer";
 import { store } from "./store/store";
 
 import "./index.css";
@@ -13,3 +13,5 @@ render(
   </Provider>,
   document.getElementById("root") as HTMLElement
 );
+
+injectHotReload();
