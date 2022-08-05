@@ -19,6 +19,7 @@ specifiers:
   react-redux: ^8.0.2
   react-refresh: ^0.14.0
   react-refresh-typescript: ^2.0.7
+  react-xul: ^0.0.0
   style-loader: ^3.3.1
   tiny-glob: ^0.2.9
   ts-loader: ^9.3.1
@@ -38,6 +39,7 @@ dependencies:
   react-dom: 18.2.0_react@18.2.0
   react-reconciler: 0.29.0_react@18.2.0
   react-redux: 8.0.2_v7vsrdtui4d36prbwvdnlb7tpq
+  react-xul: 0.0.0
   tiny-glob: 0.2.9
   ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
 
@@ -1850,6 +1852,17 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /react-xul/0.0.0:
+    resolution: {integrity: sha512-QRLS98vLfHrh3JJ/60vnC7zIHlDcW+BY65TSBycQb84hZi9cbUWF0bgESq1kcy0gvzS8GawMhplBoTVwM900Dg==}
+    dependencies:
+      '@types/react': 18.0.15
+      '@types/react-reconciler': 0.28.0
+      deep-object-diff: 1.1.7
+      react: 18.2.0
+      react-reconciler: 0.29.0_react@18.2.0
+      xul-elements: 0.0.0
+    dev: false
+
   /react/18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
     engines: {node: '>=0.10.0'}
@@ -2519,6 +2532,10 @@ packages:
         optional: true
       utf-8-validate:
         optional: true
+
+  /xul-elements/0.0.0:
+    resolution: {integrity: sha512-Zfk1jI1NYpWyTH/PSJUnKHxsfcZ0caDO8C37YlMLpuP7GPbOnQ/tN6niCfGWIMvP8xa8BvDDnp43ZH3y/4ueXw==}
+    dev: false
 
   /yallist/4.0.0:
     resolution: {integrity: sha512-3wdGidZyq5PB084XLES5TpOSRA3wjXAlIWMhum2kRcv/41Sn2emQ0dycQW4uZXLejwKvg6EsvbdlVL+FYEct7A==}
