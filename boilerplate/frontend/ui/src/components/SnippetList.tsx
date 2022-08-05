@@ -56,7 +56,6 @@ export function SnippetList() {
           const selectedIndex = (listBoxRef.current as any).selectedIndex;
 
           if (selectedIndex === -1) return dispatch(clearSnippet());
-
           dispatch(selectSnippet(snippets[selectedIndex].id));
         }}
         ref={listBoxRef}

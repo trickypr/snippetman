@@ -35,10 +35,14 @@ declare global {
       treecell: CustomElement<{}>;
       treeseparator: CustomElement<{}>;
 
-      listbox: CustomElement<{}>;
+      listbox: CustomElement<{
+        value: string;
+      }>;
       listcols: CustomElement<{}>;
       listcol: CustomElement<{}>;
-      listitem: CustomElement<{}>;
+      listitem: CustomElement<{
+        value: string;
+      }>;
       listcell: CustomElement<{}>;
       listhead: CustomElement<{}>;
       listheader: CustomElement<{}>;

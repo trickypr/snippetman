@@ -24,38 +24,38 @@ export const sampleSnippets: Snippet[] = [
 
     lang: "typescript",
     code: `import { defineConfig } from "vite";
-    import react from "@vitejs/plugin-react";
-    import { copyFile, writeFile, readFile } from "fs/promises";
-    import glob from "tiny-glob";
-    
-    const headers = [];
-    
-    function prependXMLHeaders() {
-      return {
-        name: "prepend-xml-headers",
-        closeBundle: async () => {
-          for (const file of await glob("./dist/*.html")) {
-            await writeFile(
-              file,
-              \`<?xml version="1.0"?>\n\${headers.join("\n")}\n\${await readFile(
-                file
-              )}\`
-            );
-          }
-        },
-      };
-    }
-    
-    // https://vitejs.dev/config/
-    const config = defineConfig({
-      base: "./",
-      plugins: [react(), prependXMLHeaders()],
-      build: {
-        sourcemap: "inline",
-        minify: false,
-      },
-    });
-    
-    export default config;`,
+import react from "@vitejs/plugin-react";
+import { copyFile, writeFile, readFile } from "fs/promises";
+import glob from "tiny-glob";
+
+const headers = [];
+
+function prependXMLHeaders() {
+  return {
+    name: "prepend-xml-headers",
+    closeBundle: async () => {
+      for (const file of await glob("./dist/*.html")) {
+        await writeFile(
+          file,
+          \`<?xml version="1.0"?>\n\${headers.join("\n")}\n\${await readFile(
+            file
+          )}\`
+        );
+      }
+    },
+  };
+}
+
+// https://vitejs.dev/config/
+const config = defineConfig({
+  base: "./",
+  plugins: [react(), prependXMLHeaders()],
+  build: {
+    sourcemap: "inline",
+    minify: false,
+  },
+});
+
+export default config;`,
   },
 ];

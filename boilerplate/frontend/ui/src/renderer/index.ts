@@ -75,6 +75,9 @@ const hostConfig: HostConfig<
   removeChildFromContainer(container, child) {
     container.removeChild(child);
   },
+  insertBefore(parentInstance, child, beforeChild) {
+    parentInstance.insertBefore(child, beforeChild);
+  },
 
   // Assorted mutation methods
   clearContainer(container) {
@@ -101,6 +104,16 @@ const hostConfig: HostConfig<
       // We should not handle children here
       if (prop == "children") continue;
       if (prop == "className") propName = "class";
+
+      if (propName == "style") {
+        let style = "";
+        for (const styleProp in props[prop]) {
+          style += `${styleProp}: ${props[prop][styleProp]};`;
+        }
+
+        instance.setAttribute("style", style);
+        continue;
+      }
 
       instance.setAttribute(propName.toLowerCase(), props[prop]);
     }
@@ -163,6 +176,16 @@ const hostConfig: HostConfig<
           newVal
         );
 
+        continue;
+      }
+
+      if (propName == "style") {
+        let style = "";
+        for (const styleProp in nextProps[updated]) {
+          style += `${styleProp}: ${nextProps[updated][styleProp]};`;
+        }
+
+        instance.setAttribute("style", style);
         continue;
       }
 

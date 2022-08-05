@@ -38,8 +38,37 @@ export const snippetSlice = createSlice({
     clearSnippet(state) {
       state.selectedSnippetId = undefined;
     },
+
+    // Modifying snippets
+    renameSnippet(state, action) {
+      const { id, title } = action.payload;
+      const snippet = state.snippets.find((snippet) => snippet.id === id);
+      if (snippet) {
+        snippet.title = title;
+      }
+    },
+    changeSnippetLanguage(state, action) {
+      const { id, lang } = action.payload;
+      const snippet = state.snippets.find((snippet) => snippet.id === id);
+      if (snippet) {
+        snippet.lang = lang;
+      }
+    },
+    changeSnippetCode(state, action) {
+      const { id, code } = action.payload;
+      const snippet = state.snippets.find((snippet) => snippet.id === id);
+      if (snippet) {
+        snippet.code = code;
+      }
+    },
   },
 });
 
-export const { selectSnippet, clearSnippet } = snippetSlice.actions;
+export const {
+  selectSnippet,
+  clearSnippet,
+  renameSnippet,
+  changeSnippetLanguage,
+  changeSnippetCode,
+} = snippetSlice.actions;
 export const snippetReducer = snippetSlice.reducer;
