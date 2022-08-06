@@ -4,7 +4,6 @@ import * as url from "url";
 import CopyPlugin from "copy-webpack-plugin";
 import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import TSReactRefresh from "react-refresh-typescript";
-import MonacoEditorWebpackPlugin from "monaco-editor-webpack-plugin";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -62,7 +61,6 @@ export default {
     ],
   },
   plugins: [
-    new MonacoEditorWebpackPlugin(),
     new ReactRefreshPlugin({
       overlay: {
         sockPort: 8080,

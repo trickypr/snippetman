@@ -1,12 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { sampleSnippets } from "../sampleData/snippet";
+import {
+  Language,
+  sampleSnippets,
+  supportedLanguages,
+} from "../sampleData/snippet";
 
 export interface Snippet {
   id: string;
   title: string;
   tags: string[];
 
-  lang: string;
+  lang: Language;
   code: string;
 }
 
@@ -24,7 +28,7 @@ export interface SnippetState {
 const initialState: SnippetState = {
   snippets: sampleSnippets,
 
-  languages: [...new Set(sampleSnippets.map((snippet) => snippet.lang))],
+  languages: supportedLanguages,
   tags: [...new Set(sampleSnippets.flatMap((snippet) => snippet.tags))],
 };
 

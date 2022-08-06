@@ -1,12 +1,17 @@
-import Editor from "@monaco-editor/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CodeMirror from "@uiw/react-codemirror";
+import { darcula } from "@uiw/codemirror-theme-darcula";
+
 import {
   changeSnippetCode,
   changeSnippetLanguage,
   renameSnippet,
-} from "../store/slicers/snippets";
-import { RootState } from "../store/store";
+} from "../../store/slicers/snippets";
+import { RootState } from "../../store/store";
+import { getLanguageExtension } from "./languages";
+
+import styles from "./Snippet.module.css";
 
 function SnippetInternals() {
   const dispatch = useDispatch();
@@ -18,6 +23,19 @@ function SnippetInternals() {
   const selectedSnippet = useSelector((state: RootState) =>
     state.snippet.snippets.find((snippet) => snippet.id === selectedSnippetId)
   );
+  const onChange = React.useCallback((value, viewUpdate) => {
+    dispatch(changeSnippetCode({ id: selectedSnippetId, code: value }));
+  }, []);
+
+  const [languageExtension, setLanguageExtension] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      if (selectedSnippet) {
+        setLanguageExtension(await getLanguageExtension(selectedSnippet.lang));
+      }
+    })();
+  }, [selectedSnippet]);
 
   if (!selectedSnippetId) {
     return (
@@ -36,6 +54,8 @@ function SnippetInternals() {
       </>
     );
   }
+
+  console.log(selectedSnippet.code);
 
   return (
     <>
@@ -85,13 +105,11 @@ function SnippetInternals() {
         </button>
       </hbox>
 
-      <Editor
-        height="70vh"
-        language={selectedSnippet.lang}
+      <CodeMirror
         value={selectedSnippet.code}
-        onChange={(e) => {
-          dispatch(changeSnippetCode({ id: selectedSnippetId, code: e }));
-        }}
+        onChange={onChange}
+        theme={darcula}
+        extensions={[languageExtension].filter(Boolean)}
       />
     </>
   );
@@ -99,7 +117,7 @@ function SnippetInternals() {
 
 export function Snippet() {
   return (
-    <vbox flex={2}>
+    <vbox flex={1} className={styles.snippetView}>
       <SnippetInternals />
     </vbox>
   );

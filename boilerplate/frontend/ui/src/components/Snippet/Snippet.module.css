@@ -1,0 +1,8 @@
+.snippetView {
+  overflow-y: auto;
+}
+
+.snippetView BR {
+  height: 1.4em;
+  display: block;
+}
