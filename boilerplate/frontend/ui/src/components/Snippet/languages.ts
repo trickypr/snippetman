@@ -4,7 +4,6 @@ import { Language } from "../../store/sampleData/snippet";
 export async function getLanguageExtension(
   language: Language
 ): Promise<LanguageSupport> {
-  console.log(language);
   switch (language) {
     case Language.JSON:
       return (await import("@codemirror/lang-json")).json();

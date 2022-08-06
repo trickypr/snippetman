@@ -24,6 +24,7 @@ specifiers:
   react-refresh: ^0.14.0
   react-refresh-typescript: ^2.0.7
   react-xul: ^0.0.3
+  redux-persist: ^6.0.0
   style-loader: ^3.3.1
   tiny-glob: ^0.2.9
   ts-loader: ^9.3.1
@@ -48,6 +49,7 @@ dependencies:
   react-reconciler: 0.29.0_react@18.2.0
   react-redux: 8.0.2_v7vsrdtui4d36prbwvdnlb7tpq
   react-xul: 0.0.3
+  redux-persist: 6.0.0_react@18.2.0
   tiny-glob: 0.2.9
   ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
 
@@ -2025,6 +2027,18 @@ packages:
     engines: {node: '>= 0.10'}
     dependencies:
       resolve: 1.22.1
+
+  /redux-persist/6.0.0_react@18.2.0:
+    resolution: {integrity: sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ==}
+    peerDependencies:
+      react: '>=16'
+      redux: '>4.0.0'
+    peerDependenciesMeta:
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /redux-thunk/2.4.1_redux@4.2.0:
     resolution: {integrity: sha512-OOYGNY5Jy2TWvTL1KgAlVy6dcx3siPJ1wTq741EPyUKfn6W6nChdICjZwCd0p8AZBs5kWpZlbkXW2nE/zjUa+Q==}

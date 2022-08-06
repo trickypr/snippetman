@@ -27,7 +27,6 @@ function SnippetInternals() {
   );
   const onChange = React.useCallback(
     (value, viewUpdate) => {
-      console.log("change", value);
       dispatch(changeSnippetCode({ id: selectedSnippetId, code: value }));
     },
     [selectedSnippetId]
@@ -60,8 +59,6 @@ function SnippetInternals() {
       </>
     );
   }
-
-  console.log("code", selectedSnippet.code);
 
   return (
     <>
