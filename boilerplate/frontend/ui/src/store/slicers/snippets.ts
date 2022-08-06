@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { nanoid } from "nanoid";
 import {
   Language,
   sampleSnippets,
@@ -42,6 +43,19 @@ export const snippetSlice = createSlice({
     clearSnippet(state) {
       state.selectedSnippetId = undefined;
     },
+    createSnippet(state) {
+      const id = nanoid();
+
+      state.snippets.push({
+        id: id,
+        title: "Untitled snippet",
+        tags: [],
+        lang: Language.JSON,
+        code: '{ "hello": "world" }',
+      });
+
+      state.selectedSnippetId = id;
+    },
 
     // Modifying snippets
     renameSnippet(state, action) {
@@ -74,5 +88,6 @@ export const {
   renameSnippet,
   changeSnippetLanguage,
   changeSnippetCode,
+  createSnippet,
 } = snippetSlice.actions;
 export const snippetReducer = snippetSlice.reducer;

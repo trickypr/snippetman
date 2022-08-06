@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearSnippet,
+  createSnippet,
   selectSnippet,
   Snippet,
 } from "../store/slicers/snippets";
@@ -45,7 +46,17 @@ export function SnippetList() {
 
   return (
     <vbox>
-      <input type="text" name="Search" id="listsearch" />
+      <hbox>
+        <input type="text" name="Search" id="listsearch" />
+        <button
+          style={{ minWidth: "0" }}
+          onClick={() => {
+            dispatch(createSnippet());
+          }}
+        >
+          +
+        </button>
+      </hbox>
 
       <richlistbox
         flex={1}

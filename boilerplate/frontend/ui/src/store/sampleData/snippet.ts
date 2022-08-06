@@ -51,7 +51,7 @@ function prependXMLHeaders() {
       for (const file of await glob("./dist/*.html")) {
         await writeFile(
           file,
-          \`<?xml version="1.0"?>\n\${headers.join("\n")}\n\${await readFile(
+          \`<?xml version="1.0"?>\\n\${headers.join("\\n")}\\n\${await readFile(
             file
           )}\`
         );

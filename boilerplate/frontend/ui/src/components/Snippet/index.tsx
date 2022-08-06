@@ -21,11 +21,17 @@ function SnippetInternals() {
     (state: RootState) => state.snippet.selectedSnippetId
   );
   const selectedSnippet = useSelector((state: RootState) =>
-    state.snippet.snippets.find((snippet) => snippet.id === selectedSnippetId)
+    state.snippet.snippets.find(
+      (snippet) => snippet.id === state.snippet.selectedSnippetId
+    )
   );
-  const onChange = React.useCallback((value, viewUpdate) => {
-    dispatch(changeSnippetCode({ id: selectedSnippetId, code: value }));
-  }, []);
+  const onChange = React.useCallback(
+    (value, viewUpdate) => {
+      console.log("change", value);
+      dispatch(changeSnippetCode({ id: selectedSnippetId, code: value }));
+    },
+    [selectedSnippetId]
+  );
 
   const [languageExtension, setLanguageExtension] = useState(null);
 
@@ -55,7 +61,7 @@ function SnippetInternals() {
     );
   }
 
-  console.log(selectedSnippet.code);
+  console.log("code", selectedSnippet.code);
 
   return (
     <>
