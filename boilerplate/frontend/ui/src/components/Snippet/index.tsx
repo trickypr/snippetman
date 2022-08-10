@@ -76,19 +76,21 @@ function SnippetInternals() {
         }}
       />
 
-      <hbox>
+      <box>
         <hbox>
           {selectedSnippet.tags.map((tag) => (
             <description key={tag} value={tag} flex={1} />
           ))}
         </hbox>
 
+        <spacer flex={1} />
+
         <button
           type="menu"
           value={selectedSnippet.lang}
           label={selectedSnippet.lang}
         >
-          <menupopup type="arrow" orient="vertical" role="menu">
+          <menupopup>
             {langs.map((lang) => (
               <menuitem
                 key={lang}
@@ -106,7 +108,7 @@ function SnippetInternals() {
             ))}
           </menupopup>
         </button>
-      </hbox>
+      </box>
 
       <CodeMirror
         value={selectedSnippet.code}
