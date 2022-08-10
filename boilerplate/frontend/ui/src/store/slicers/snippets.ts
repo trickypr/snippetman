@@ -29,7 +29,7 @@ export interface SnippetState {
 const initialState: SnippetState = {
   snippets: sampleSnippets,
 
-  languages: supportedLanguages,
+  languages: [...new Set(sampleSnippets.map((s) => s.lang))],
   tags: [...new Set(sampleSnippets.flatMap((snippet) => snippet.tags))],
 };
 

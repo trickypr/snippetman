@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { PrimaryFilter, PrimaryFilterType } from "../store/slicers/filter";
 import {
   clearSnippet,
   createSnippet,
@@ -38,7 +39,19 @@ function SnippetListItem({ snippet }: { snippet: Snippet }) {
   );
 }
 
-function fastSnippetFilter(snippet: Snippet, filter: string): boolean {
+function primaryFilter(snippet: Snippet, filter: PrimaryFilter): boolean {
+  switch (filter.type) {
+    case PrimaryFilterType.LANG:
+      return snippet.lang === filter.value;
+
+    case PrimaryFilterType.TAG:
+      return snippet.tags.includes(filter.value);
+  }
+
+  return true;
+}
+
+function textSearch(snippet: Snippet, filter: string): boolean {
   if (filter == "") return true;
 
   return (
@@ -53,11 +66,14 @@ export function SnippetList() {
   const unfilteredSnippets = useSelector(
     (state: RootState) => state.snippet.snippets
   );
+  const filter = useSelector((state: RootState) => state.filter.primaryFilter);
+
   const [search, setSearch] = useState("");
   const dispatch = useDispatch();
-  const snippets = unfilteredSnippets.filter((snippet) =>
-    fastSnippetFilter(snippet, search.toLowerCase())
-  );
+
+  const snippets = unfilteredSnippets
+    .filter((snippet) => primaryFilter(snippet, filter))
+    .filter((snippet) => textSearch(snippet, search.toLowerCase()));
 
   const listBoxRef = useRef();
 

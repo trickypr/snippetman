@@ -14,14 +14,12 @@ export interface PrimaryFilter {
 
 export interface FilterState {
   primaryFilter: PrimaryFilter;
-  searchFilter: string;
 }
 
 const initialState: FilterState = {
   primaryFilter: {
     type: PrimaryFilterType.ALL,
   },
-  searchFilter: "",
 };
 
 export const filterSlice = createSlice({
