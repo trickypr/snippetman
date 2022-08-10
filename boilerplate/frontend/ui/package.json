@@ -21,10 +21,8 @@
     "nanoid": "^4.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-reconciler": "^0.29.0",
     "react-redux": "^8.0.2",
-    "react-xul": "^0.0.3",
-    "redux-persist": "^6.0.0",
+    "react-xul": "^0.0.4",
     "tiny-glob": "^0.2.9",
     "ts-loader": "^9.3.1"
   },
