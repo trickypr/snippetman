@@ -22,7 +22,7 @@ specifiers:
   react-redux: ^8.0.2
   react-refresh: ^0.14.0
   react-refresh-typescript: ^2.0.7
-  react-xul: ^0.0.4
+  react-xul: ^0.0.5
   style-loader: ^3.3.1
   tiny-glob: ^0.2.9
   ts-loader: ^9.3.1
@@ -45,7 +45,7 @@ dependencies:
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-redux: 8.0.2_v7vsrdtui4d36prbwvdnlb7tpq
-  react-xul: 0.0.4
+  react-xul: 0.0.5
   tiny-glob: 0.2.9
   ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
 
@@ -1975,8 +1975,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-xul/0.0.4:
-    resolution: {integrity: sha512-ZfnlAh/dE7Y49vwbs96bKAN+AMvoxQqkAMy5yNnGqysn5ltEcFlfcHQp6KU2k96sP2/vOHcNKfZlIWj3sQYmUA==}
+  /react-xul/0.0.5:
+    resolution: {integrity: sha512-PYThYg5SmpapVjt1YnDz1ORw8p/RWN0YqIyuVSLT51OgDxDVQm6XVRBIBVgovJ6wtVsH7upgRIr2NHHxRWYsvQ==}
     dependencies:
       '@types/react': 18.0.15
       '@types/react-reconciler': 0.28.0

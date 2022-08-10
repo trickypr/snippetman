@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearSnippet,
@@ -38,16 +38,39 @@ function SnippetListItem({ snippet }: { snippet: Snippet }) {
   );
 }
 
+function fastSnippetFilter(snippet: Snippet, filter: string): boolean {
+  if (filter == "") return true;
+
+  return (
+    snippet.title.toLowerCase().includes(filter) ||
+    snippet.lang.toLowerCase().includes(filter) ||
+    snippet.tags.some((tag) => tag.toLowerCase().includes(filter)) ||
+    snippet.code.includes(filter)
+  );
+}
+
 export function SnippetList() {
-  const snippets = useSelector((state: RootState) => state.snippet.snippets);
+  const unfilteredSnippets = useSelector(
+    (state: RootState) => state.snippet.snippets
+  );
+  const [search, setSearch] = useState("");
   const dispatch = useDispatch();
+  const snippets = unfilteredSnippets.filter((snippet) =>
+    fastSnippetFilter(snippet, search.toLowerCase())
+  );
 
   const listBoxRef = useRef();
 
   return (
     <vbox>
       <hbox>
-        <input type="text" name="Search" id="listsearch" />
+        <input
+          type="text"
+          name="Search"
+          id="listsearch"
+          value={search}
+          onKeyUp={(e) => setSearch(e.target.value)}
+        />
         <button
           style={{ minWidth: "0" }}
           onClick={() => {
