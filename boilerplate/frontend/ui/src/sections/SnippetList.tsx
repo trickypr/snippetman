@@ -4,6 +4,7 @@ import { PrimaryFilter, PrimaryFilterType } from "../store/slicers/filter";
 import {
   clearSnippet,
   createSnippet,
+  deleteSnippet,
   selectSnippet,
   Snippet,
 } from "../store/slicers/snippets";
@@ -12,8 +13,15 @@ import { RootState } from "../store/store";
 import styles from "./SnippetList.module.css";
 
 function SnippetListItem({ snippet }: { snippet: Snippet }) {
+  const dispatch = useDispatch();
+  const contextMenuId = `${snippet.id}-context-menu`;
+
   return (
-    <richlistitem orient="vertical" className={styles.listItem}>
+    <richlistitem
+      orient="vertical"
+      className={styles.listItem}
+      context={contextMenuId}
+    >
       <hbox>
         <description
           className={styles.listItemTitle}
@@ -35,6 +43,13 @@ function SnippetListItem({ snippet }: { snippet: Snippet }) {
         crop="end"
         flex={1}
       />
+
+      <menupopup id={contextMenuId}>
+        <menuitem
+          label="Delete"
+          onClick={() => dispatch(deleteSnippet(snippet.id))}
+        />
+      </menupopup>
     </richlistitem>
   );
 }

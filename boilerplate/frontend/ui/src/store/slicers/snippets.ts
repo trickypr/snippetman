@@ -54,6 +54,11 @@ export const snippetSlice = createSlice({
     },
 
     // Modifying snippets
+    deleteSnippet(state, action) {
+      state.snippets = state.snippets.filter(
+        (snippet) => snippet.id !== action.payload
+      );
+    },
     renameSnippet(state, action) {
       const { id, title } = action.payload;
       const snippet = state.snippets.find((snippet) => snippet.id === id);
@@ -102,6 +107,7 @@ export const {
   changeSnippetLanguage,
   changeSnippetCode,
   createSnippet,
+  deleteSnippet,
 
   addTag,
   removeTag,
