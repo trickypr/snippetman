@@ -6,3 +6,27 @@
   height: 1.4em;
   display: block;
 }
+
+.tagContainer {
+  margin: 4px;
+  padding: 4px;
+  background-color: Field;
+  border-radius: var(--button-border-radius);
+}
+
+.tagContainer > box:nth-child(2) {
+  box-sizing: border-box;
+  padding: 8px 12px;
+  -moz-context-properties: fill, fill-opacity;
+  fill-opacity: 0.6;
+  fill: currentColor;
+  border-radius: var(--button-border-radius);
+}
+
+.tagContainer box:hover {
+  background-color: color-mix(
+    in srgb,
+    currentColor 10%,
+    transparent
+  ) !important;
+}

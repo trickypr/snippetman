@@ -79,7 +79,7 @@ export function SnippetList() {
 
   return (
     <vbox>
-      <hbox>
+      <hbox className={styles.searchList}>
         <input
           type="text"
           name="Search"
@@ -88,13 +88,11 @@ export function SnippetList() {
           onKeyUp={(e) => setSearch(e.target.value)}
         />
         <button
-          style={{ minWidth: "0" }}
           onClick={() => {
             dispatch(createSnippet());
           }}
-        >
-          +
-        </button>
+          id={styles.addButton}
+        ></button>
       </hbox>
 
       <richlistbox

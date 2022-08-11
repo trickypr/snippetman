@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { nanoid } from "nanoid";
-import {
-  Language,
-  sampleSnippets,
-  supportedLanguages,
-} from "../sampleData/snippet";
+import { Language, sampleSnippets } from "../sampleData/snippet";
 
 export interface Snippet {
   id: string;
@@ -71,12 +67,22 @@ export const snippetSlice = createSlice({
       if (snippet) {
         snippet.lang = lang;
       }
+      state.languages = [...new Set(state.snippets.map((s) => s.lang))];
     },
     changeSnippetCode(state, action) {
       const { id, code } = action.payload;
       const snippet = state.snippets.find((snippet) => snippet.id === id);
       if (snippet) {
         snippet.code = code;
+      }
+    },
+
+    // Working with tags
+    removeTag(state, action) {
+      const { id, tag } = action.payload;
+      const snippet = state.snippets.find((snippet) => snippet.id === id);
+      if (snippet) {
+        snippet.tags = snippet.tags.filter((t) => t !== tag);
       }
     },
   },
@@ -89,5 +95,7 @@ export const {
   changeSnippetLanguage,
   changeSnippetCode,
   createSnippet,
+
+  removeTag,
 } = snippetSlice.actions;
 export const snippetReducer = snippetSlice.reducer;

@@ -1,3 +1,7 @@
+:root {
+  --button-border-radius: 4px;
+}
+
 #root {
   height: 100vh;
 }

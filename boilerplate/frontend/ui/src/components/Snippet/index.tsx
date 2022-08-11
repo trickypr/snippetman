@@ -6,12 +6,14 @@ import { darcula } from "@uiw/codemirror-theme-darcula";
 import {
   changeSnippetCode,
   changeSnippetLanguage,
+  removeTag,
   renameSnippet,
 } from "../../store/slicers/snippets";
 import { RootState } from "../../store/store";
 import { getLanguageExtension } from "./languages";
 
 import styles from "./Snippet.module.css";
+import { supportedLanguages } from "../../store/sampleData/snippet";
 
 function SnippetInternals() {
   const dispatch = useDispatch();
@@ -79,7 +81,20 @@ function SnippetInternals() {
       <box>
         <hbox>
           {selectedSnippet.tags.map((tag) => (
-            <description key={tag} value={tag} flex={1} />
+            <hbox key={tag} className={styles.tagContainer}>
+              <description value={tag} flex={1} />
+              <box
+                style={{
+                  background:
+                    "url(chrome://global/skin/icons/close.svg) no-repeat center",
+                  width: "8px",
+                  height: "8px",
+                }}
+                onClick={() =>
+                  dispatch(removeTag({ id: selectedSnippetId, tag }))
+                }
+              />
+            </hbox>
           ))}
         </hbox>
 
@@ -91,7 +106,7 @@ function SnippetInternals() {
           label={selectedSnippet.lang}
         >
           <menupopup>
-            {langs.map((lang) => (
+            {supportedLanguages.map((lang) => (
               <menuitem
                 key={lang}
                 label={lang}
