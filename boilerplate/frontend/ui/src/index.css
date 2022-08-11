@@ -1,5 +1,6 @@
 :root {
   --button-border-radius: 4px;
+  --button-inner-border-radius: 2px;
 }
 
 #root {

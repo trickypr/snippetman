@@ -78,6 +78,13 @@ export const snippetSlice = createSlice({
     },
 
     // Working with tags
+    addTag(state, action) {
+      const { id, tag } = action.payload;
+      const snippet = state.snippets.find((snippet) => snippet.id === id);
+      if (snippet) {
+        snippet.tags.push(tag);
+      }
+    },
     removeTag(state, action) {
       const { id, tag } = action.payload;
       const snippet = state.snippets.find((snippet) => snippet.id === id);
@@ -96,6 +103,7 @@ export const {
   changeSnippetCode,
   createSnippet,
 
+  addTag,
   removeTag,
 } = snippetSlice.actions;
 export const snippetReducer = snippetSlice.reducer;

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CodeMirror from "@uiw/react-codemirror";
 import { darcula } from "@uiw/codemirror-theme-darcula";
+import ReactModal from "react-modal";
 
 import {
+  addTag,
   changeSnippetCode,
   changeSnippetLanguage,
   removeTag,
@@ -18,7 +20,6 @@ import { supportedLanguages } from "../../store/sampleData/snippet";
 function SnippetInternals() {
   const dispatch = useDispatch();
 
-  const langs = useSelector((state: RootState) => state.snippet.languages);
   const selectedSnippetId = useSelector(
     (state: RootState) => state.snippet.selectedSnippetId
   );
@@ -35,6 +36,7 @@ function SnippetInternals() {
   );
 
   const [languageExtension, setLanguageExtension] = useState(null);
+  const [addNewTag, setAddNewTag] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -84,11 +86,10 @@ function SnippetInternals() {
             <hbox key={tag} className={styles.tagContainer}>
               <description value={tag} flex={1} />
               <box
+                className={`${styles.iconButton} ${styles.icon}`}
                 style={{
                   background:
                     "url(chrome://global/skin/icons/close.svg) no-repeat center",
-                  width: "8px",
-                  height: "8px",
                 }}
                 onClick={() =>
                   dispatch(removeTag({ id: selectedSnippetId, tag }))
@@ -96,6 +97,35 @@ function SnippetInternals() {
               />
             </hbox>
           ))}
+
+          {typeof addNewTag === "string" && (
+            <input
+              type="text"
+              name="New Tag"
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  dispatch(
+                    addTag({ id: selectedSnippetId, tag: e.target.value })
+                  );
+                  setAddNewTag(null);
+                }
+              }}
+            />
+          )}
+
+          <div
+            className={`${styles.tagContainer} ${styles.icon}`}
+            style={{
+              background:
+                typeof addNewTag === "string"
+                  ? "url(chrome://global/skin/icons/close.svg) no-repeat center"
+                  : "url(chrome://global/skin/icons/plus.svg) no-repeat center",
+              width: "32px",
+            }}
+            onClick={() =>
+              setAddNewTag(typeof addNewTag === "string" ? null : "")
+            }
+          />
         </hbox>
 
         <spacer flex={1} />

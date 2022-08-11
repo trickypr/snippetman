@@ -1,18 +1,18 @@
 import React from "react";
 
-import { Snippet } from "./components/Snippet";
-import { SnippetList } from "./components/SnippetList";
-import { Tree } from "./components/Tree";
+import { Snippet } from "./sections/Snippet";
+import { SnippetList } from "./sections/SnippetList";
+import { Tree } from "./sections/Tree";
 
 function App() {
   return (
-    <>
+    <hbox flex={1} style={{ width: "100%", height: "100vh" }}>
       <Tree />
       <splitter />
       <SnippetList />
       <splitter />
       <Snippet />
-    </>
+    </hbox>
   );
 }
 

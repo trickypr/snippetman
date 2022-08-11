@@ -10,20 +10,27 @@
 .tagContainer {
   margin: 4px;
   padding: 4px;
-  background-color: Field;
+  background-color: Field !important;
   border-radius: var(--button-border-radius);
 }
 
-.tagContainer > box:nth-child(2) {
-  box-sizing: border-box;
-  padding: 8px 12px;
+.icon {
   -moz-context-properties: fill, fill-opacity;
   fill-opacity: 0.6;
   fill: currentColor;
-  border-radius: var(--button-border-radius);
+
+  aspect-ratio: 1/1;
 }
 
-.tagContainer box:hover {
+.iconButton {
+  padding: 8px 12px;
+  border-radius: var(--button-inner-border-radius);
+
+  width: 8px;
+  height: 8px;
+}
+
+.icon:hover {
   background-color: color-mix(
     in srgb,
     currentColor 10%,
