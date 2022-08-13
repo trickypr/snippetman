@@ -7,8 +7,12 @@ import { getLanguageExtension } from "./languages";
 import styles from "./Snippet.module.css";
 import { supportedLanguages } from "../../store/sampleData/snippet";
 import { useSnippetStore } from "../../store/snippets";
+import { Hint } from "react-autocomplete-hint";
 
 function SnippetInternals() {
+  const tags = useSnippetStore((state) => [
+    ...new Set(state.snippets.flatMap((snippet) => snippet.tags)),
+  ]);
   const selectedSnippet = useSnippetStore((state) =>
     state.snippets.find((snippet) => snippet.id === state.selectedSnippetId)
   );
@@ -77,19 +81,23 @@ function SnippetInternals() {
           ))}
 
           {typeof addNewTag === "string" && (
-            <input
-              type="text"
-              name="New Tag"
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  modifySnippet({
-                    ...selectedSnippet,
-                    tags: [...selectedSnippet.tags, e.target.value],
-                  });
-                  setAddNewTag(null);
-                }
-              }}
-            />
+            <Hint options={tags} onHint={(h) => console.log(h)} allowTabFill>
+              <input
+                type="text"
+                name="New Tag"
+                placeholder="New Tag"
+                onChange={(e) => console.log("Client change", e)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    modifySnippet({
+                      ...selectedSnippet,
+                      tags: [...selectedSnippet.tags, e.target.value],
+                    });
+                    setAddNewTag(null);
+                  }
+                }}
+              />
+            </Hint>
           )}
 
           <div

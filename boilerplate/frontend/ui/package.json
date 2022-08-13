@@ -20,9 +20,10 @@
     "deep-object-diff": "^1.1.7",
     "nanoid": "^4.0.0",
     "react": "^18.2.0",
+    "react-autocomplete-hint": "^2.0.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.2",
-    "react-xul": "^0.0.5",
+    "react-xul": "^0.0.6",
     "tiny-glob": "^0.2.9",
     "ts-loader": "^9.3.1",
     "zustand": "^4.0.0"

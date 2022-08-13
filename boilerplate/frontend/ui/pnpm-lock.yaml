@@ -18,11 +18,12 @@ specifiers:
   deep-object-diff: ^1.1.7
   nanoid: ^4.0.0
   react: ^18.2.0
+  react-autocomplete-hint: ^2.0.0
   react-dom: ^18.2.0
   react-redux: ^8.0.2
   react-refresh: ^0.14.0
   react-refresh-typescript: ^2.0.7
-  react-xul: ^0.0.5
+  react-xul: ^0.0.6
   style-loader: ^3.3.1
   tiny-glob: ^0.2.9
   ts-loader: ^9.3.1
@@ -44,9 +45,10 @@ dependencies:
   deep-object-diff: 1.1.7
   nanoid: 4.0.0
   react: 18.2.0
+  react-autocomplete-hint: 2.0.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-redux: 8.0.2_v7vsrdtui4d36prbwvdnlb7tpq
-  react-xul: 0.0.5
+  react-xul: 0.0.6
   tiny-glob: 0.2.9
   ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
   zustand: 4.0.0_react@18.2.0
@@ -1900,6 +1902,14 @@ packages:
       iconv-lite: 0.4.24
       unpipe: 1.0.0
 
+  /react-autocomplete-hint/2.0.0_react@18.2.0:
+    resolution: {integrity: sha512-cwj+h503xosFvd7y/tVHAo2bMj033v9WzVKbsPKc/SfoNsLD75/5nhBoIxbZOCP2KiPhgHHalb77Z/4pu6uwTQ==}
+    peerDependencies:
+      react: '>=16.0.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
     peerDependencies:
@@ -1977,8 +1987,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /react-xul/0.0.5:
-    resolution: {integrity: sha512-PYThYg5SmpapVjt1YnDz1ORw8p/RWN0YqIyuVSLT51OgDxDVQm6XVRBIBVgovJ6wtVsH7upgRIr2NHHxRWYsvQ==}
+  /react-xul/0.0.6:
+    resolution: {integrity: sha512-WGHETTun31Le5gay9pC1GtJdnaRmHi1e1/xzPRbaMopgUkK30f+8nol+DESwyyc8nkMTDvOjqnqffia/RTaEdQ==}
     dependencies:
       '@types/react': 18.0.15
       '@types/react-reconciler': 0.28.0
