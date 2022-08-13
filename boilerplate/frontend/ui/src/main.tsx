@@ -21,3 +21,19 @@ render(
 );
 
 injectDevTools();
+
+// Open assorted debugging windows
+Services.ww.openWindow(
+  null,
+  "about:memory",
+  "_blank",
+  [
+    "dialog",
+    "resizable",
+    "minimizable",
+    "centerscreen",
+    "titlebar",
+    "close",
+  ].join(","),
+  []
+);

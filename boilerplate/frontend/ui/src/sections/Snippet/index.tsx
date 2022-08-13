@@ -13,6 +13,7 @@ function SnippetInternals() {
   const tags = useSnippetStore((state) => [
     ...new Set(state.snippets.flatMap((snippet) => snippet.tags)),
   ]);
+  const selectedSnippetId = useSnippetStore((state) => state.selectedSnippetId);
   const selectedSnippet = useSnippetStore((state) =>
     state.snippets.find((snippet) => snippet.id === state.selectedSnippetId)
   );
@@ -37,7 +38,7 @@ function SnippetInternals() {
         setLanguageExtension(await getLanguageExtension(selectedSnippet.lang));
       }
     })();
-  }, [selectedSnippet]);
+  }, [selectedSnippetId]);
 
   if (!selectedSnippet) {
     return (
@@ -86,7 +87,6 @@ function SnippetInternals() {
                 type="text"
                 name="New Tag"
                 placeholder="New Tag"
-                onChange={(e) => console.log("Client change", e)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     modifySnippet({

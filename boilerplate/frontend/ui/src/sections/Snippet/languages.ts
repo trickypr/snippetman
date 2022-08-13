@@ -1,4 +1,4 @@
-import { LanguageSupport, StreamLanguage } from "@codemirror/language";
+import { LanguageSupport } from "@codemirror/language";
 import { Language } from "../../store/sampleData/snippet";
 
 export async function getLanguageExtension(
@@ -15,6 +15,15 @@ export async function getLanguageExtension(
       return (await import("@codemirror/lang-javascript")).javascript({
         typescript: true,
       });
+
+    case Language.HTML:
+      return (await import("@codemirror/lang-html")).html();
+
+    case Language.CPP:
+      return (await import("@codemirror/lang-cpp")).cpp();
+
+    case Language.Markdown:
+      return (await import("@codemirror/lang-markdown")).markdown();
   }
 
   throw new Error("Language not supported");

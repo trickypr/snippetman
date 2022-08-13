@@ -1,18 +1,22 @@
 import { nanoid } from "@reduxjs/toolkit";
-import { Snippet } from "../slicers/snippets";
-
-// _slicers_snippets__WEBPACK_IMPORTED_MODULE_1__
+import { Snippet } from "../snippets";
 
 export enum Language {
   JSON = "json",
   JavaScript = "javascript",
   TypeScript = "typescript",
+  HTML = "html",
+  CPP = "cpp",
+  Markdown = "markdown",
 }
 
 export const supportedLanguages: Language[] = [
   Language.JSON,
   Language.JavaScript,
   Language.TypeScript,
+  Language.HTML,
+  Language.CPP,
+  Language.Markdown,
 ];
 
 export const sampleSnippets: Snippet[] = [
