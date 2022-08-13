@@ -1,10 +1,9 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useFilterStore } from "../store/filter";
 
-import { PrimaryFilter, PrimaryFilterType } from "../store/slicers/filter";
+import { PrimaryFilter, PrimaryFilterType } from "../store/filter";
 import { Snippet } from "../store/snippets";
 import { useSnippetStore } from "../store/snippets";
-import { RootState } from "../store/store";
 
 import styles from "./SnippetList.module.css";
 
@@ -72,7 +71,7 @@ function textSearch(snippet: Snippet, filter: string): boolean {
 
 export function SnippetList() {
   const unfilteredSnippets = useSnippetStore((store) => store.snippets);
-  const filter = useSelector((state: RootState) => state.filter.primaryFilter);
+  const filter = useFilterStore((store) => store.filter);
 
   const createSnippet = useSnippetStore((store) => store.createSnippet);
   const clearSnippet = useSnippetStore((store) => store.clearSnippet);

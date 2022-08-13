@@ -1,5 +1,5 @@
 import { LanguageSupport } from "@codemirror/language";
-import { Language } from "../../store/sampleData/snippet";
+import { Language } from "../../store/snippets";
 
 export async function getLanguageExtension(
   language: Language

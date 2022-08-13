@@ -1,19 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  PrimaryFilter,
-  PrimaryFilterType,
-  setPrimaryFilter,
-} from "../store/slicers/filter";
+
+import { useFilterStore } from "../store/filter";
+import { PrimaryFilter, PrimaryFilterType } from "../store/filter";
 import { useSnippetStore } from "../store/snippets";
-import { RootState } from "../store/store";
 import { toTitleCase } from "../utils/primitives";
 
 import styles from "./Tree.module.css";
 
 export function Tree() {
   const treeRef = useRef(null);
-  const dispatch = useDispatch();
 
   const languages = useSnippetStore((state) => [
     ...new Set(state.snippets.map((snippet) => snippet.lang)),
@@ -22,9 +17,8 @@ export function Tree() {
     ...new Set(state.snippets.flatMap((snippet) => snippet.tags)),
   ]);
 
-  const currentFilter = useSelector(
-    (state: RootState) => state.filter.primaryFilter
-  );
+  const currentFilter = useFilterStore((state) => state.filter);
+  const setFilter = useFilterStore((state) => state.setFilter);
 
   // We want to make sure the tree is always in sync with what is in the current
   // store
@@ -67,11 +61,9 @@ export function Tree() {
       className={`${styles.sidebar}`}
       hideColumnPicker={true}
       ref={treeRef}
-      onSelect={(event) => {
-        dispatch(
-          setPrimaryFilter(treeValues[(treeRef.current as any).currentIndex])
-        );
-      }}
+      onSelect={(event) =>
+        setFilter(treeValues[(treeRef.current as any).currentIndex])
+      }
       seltype="single"
       persist="width"
     >

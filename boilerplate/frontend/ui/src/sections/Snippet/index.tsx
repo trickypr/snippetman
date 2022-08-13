@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { darcula } from "@uiw/codemirror-theme-darcula";
+import { Hint } from "react-autocomplete-hint";
 
 import { getLanguageExtension } from "./languages";
-
 import styles from "./Snippet.module.css";
-import { supportedLanguages } from "../../store/sampleData/snippet";
+import { supportedLanguages } from "../../store/snippets";
 import { useSnippetStore } from "../../store/snippets";
-import { Hint } from "react-autocomplete-hint";
 
 function SnippetInternals() {
   const tags = useSnippetStore((state) => [
