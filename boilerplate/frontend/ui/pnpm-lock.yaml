@@ -26,6 +26,7 @@ specifiers:
   react-refresh-typescript: ^2.0.7
   react-xul: ^0.0.8
   style-loader: ^3.3.1
+  terser-webpack-plugin: ^5.3.4
   tiny-glob: ^0.2.9
   ts-loader: ^9.3.1
   typescript: ^4.6.4
@@ -65,6 +66,7 @@ devDependencies:
   react-refresh: 0.14.0
   react-refresh-typescript: 2.0.7_w6mwrkocxt54orl6ltvauipx6u
   style-loader: 3.3.1_webpack@5.74.0
+  terser-webpack-plugin: 5.3.4_webpack@5.74.0
   typescript: 4.7.4
   webpack: 5.74.0_webpack-cli@4.10.0
   webpack-cli: 4.10.0_foudhxygz4mdqapuaanowzkgwm
@@ -2321,8 +2323,8 @@ packages:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
 
-  /terser-webpack-plugin/5.3.3_webpack@5.74.0:
-    resolution: {integrity: sha512-Fx60G5HNYknNTNQnzQ1VePRuu89ZVYWfjRAeT5rITuCY/1b08s49e5kSQwHDirKZWuoKOBRFS98EUUoZ9kLEwQ==}
+  /terser-webpack-plugin/5.3.4_webpack@5.74.0:
+    resolution: {integrity: sha512-SmnkUhBxLDcBfTIeaq+ZqJXLVEyXxSaNcCeSezECdKjfkMrTTnPvapBILylYwyEvHFZAn2cJ8dtiXel5XnfOfQ==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
       '@swc/core': '*'
@@ -2596,7 +2598,7 @@ packages:
       neo-async: 2.6.2
       schema-utils: 3.1.1
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.3_webpack@5.74.0
+      terser-webpack-plugin: 5.3.4_webpack@5.74.0
       watchpack: 2.4.0
       webpack-cli: 4.10.0_foudhxygz4mdqapuaanowzkgwm
       webpack-sources: 3.2.3
