@@ -26,21 +26,24 @@ export function Tree() {
     (state: RootState) => state.filter.primaryFilter
   );
 
-  let tree: { label: string; value: PrimaryFilter }[] = [
+  let tree: { label: string; key: string; value: PrimaryFilter }[] = [
     {
       label: "All",
+      key: "all",
       value: {
         type: PrimaryFilterType.ALL,
       },
     },
     {
       label: "Languages",
+      key: "languages",
       value: {
         type: PrimaryFilterType.HEADER,
       },
     },
     ...languages.map((language) => ({
       label: toTitleCase(language),
+      key: `lang-${language}`,
       value: {
         type: PrimaryFilterType.LANG,
         value: language,
@@ -48,12 +51,14 @@ export function Tree() {
     })),
     {
       label: "Tags",
+      key: "tags",
       value: {
         type: PrimaryFilterType.HEADER,
       },
     },
     ...tags.map((tag) => ({
       label: toTitleCase(tag),
+      key: `tag-${tag}`,
       value: {
         type: PrimaryFilterType.TAG,
         value: tag,
@@ -97,11 +102,11 @@ export function Tree() {
         {tree.map((item) => {
           if (item.value.type == PrimaryFilterType.HEADER) {
             // TODO: show heading text here
-            return <treeseparator key={item.label + item.value} />;
+            return <treeseparator key={item.key} />;
           }
 
           return (
-            <treeitem key={item.label + item.value}>
+            <treeitem key={item.key}>
               <treerow>
                 <treecell label={item.label} />
               </treerow>
