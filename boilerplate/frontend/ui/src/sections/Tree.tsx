@@ -26,54 +26,13 @@ export function Tree() {
     (state: RootState) => state.filter.primaryFilter
   );
 
-  let tree: { label: string; key: string; value: PrimaryFilter }[] = [
-    {
-      label: "All",
-      key: "all",
-      value: {
-        type: PrimaryFilterType.ALL,
-      },
-    },
-    {
-      label: "Languages",
-      key: "languages",
-      value: {
-        type: PrimaryFilterType.HEADER,
-      },
-    },
-    ...languages.map((language) => ({
-      label: toTitleCase(language),
-      key: `lang-${language}`,
-      value: {
-        type: PrimaryFilterType.LANG,
-        value: language,
-      },
-    })),
-    {
-      label: "Tags",
-      key: "tags",
-      value: {
-        type: PrimaryFilterType.HEADER,
-      },
-    },
-    ...tags.map((tag) => ({
-      label: toTitleCase(tag),
-      key: `tag-${tag}`,
-      value: {
-        type: PrimaryFilterType.TAG,
-        value: tag,
-      },
-    })),
-  ];
-
   // We want to make sure the tree is always in sync with what is in the current
   // store
   useEffect(() => {
     if (treeRef.current) {
-      const index = tree.findIndex(
+      const index = treeValues.findIndex(
         (item) =>
-          item.value.type === currentFilter.type &&
-          item.value.value === currentFilter.value
+          item.type === currentFilter.type && item.value === currentFilter.value
       );
 
       if (index !== -1) {
@@ -82,37 +41,100 @@ export function Tree() {
     }
   }, [currentFilter]);
 
+  const treeValues: PrimaryFilter[] = [
+    {
+      type: PrimaryFilterType.ALL,
+    },
+    {
+      type: PrimaryFilterType.HEADER,
+    },
+    ...languages.map((language) => ({
+      type: PrimaryFilterType.LANG,
+      value: language,
+    })),
+    {
+      type: PrimaryFilterType.HEADER,
+    },
+    ...tags.map((tag) => ({
+      type: PrimaryFilterType.TAG,
+      value: tag,
+    })),
+  ];
+
   return (
     <tree
       flex="1"
-      className={`plain ${styles.sidebar}`}
+      className={`${styles.sidebar}`}
       hideColumnPicker={true}
       ref={treeRef}
       onSelect={(event) => {
         dispatch(
-          setPrimaryFilter(tree[(treeRef.current as any).currentIndex].value)
+          setPrimaryFilter(treeValues[(treeRef.current as any).currentIndex])
         );
       }}
+      seltype="single"
+      persist="width"
     >
       <treecols>
-        <treecol id="nameColumn" flex="1" hideHeader={true} />
+        <treecol id="nameColumn" flex="1" primary={true} hideHeader={true} />
       </treecols>
 
       <treechildren flex="1">
-        {tree.map((item) => {
-          if (item.value.type == PrimaryFilterType.HEADER) {
-            // TODO: show heading text here
-            return <treeseparator key={item.key} />;
-          }
+        <treeitem>
+          <treerow>
+            <treecell label="All" />
+          </treerow>
+        </treeitem>
 
-          return (
-            <treeitem key={item.key}>
-              <treerow>
-                <treecell label={item.label} />
-              </treerow>
-            </treeitem>
-          );
-        })}
+        <treeitem container="true" open="true">
+          <treerow>
+            <treecell label="Languages" />
+          </treerow>
+
+          <treechildren>
+            {languages
+              .map((language) => ({
+                label: toTitleCase(language),
+                key: `lang-${language}`,
+                value: {
+                  type: PrimaryFilterType.LANG,
+                  value: language,
+                },
+              }))
+              .map((item) => (
+                <treeitem key={item.key}>
+                  <treerow>
+                    <treecell label={item.label} />
+                  </treerow>
+                </treeitem>
+              ))}
+          </treechildren>
+        </treeitem>
+
+        <treeitem container="true" open="true">
+          <treerow>
+            <treecell label="Tags" />
+          </treerow>
+
+          <treechildren>
+            {tags
+              .map((tag) => ({
+                label: toTitleCase(tag),
+                key: `tag-${tag}`,
+                value: {
+                  type: PrimaryFilterType.TAG,
+                  value: tag,
+                },
+              }))
+              .map((item) => (
+                <treeitem key={item.key}>
+                  <treerow>
+                    <treecell label={item.label} />
+                  </treerow>
+                </treeitem>
+              ))}
+          </treechildren>
+        </treeitem>
       </treechildren>
     </tree>
   );
