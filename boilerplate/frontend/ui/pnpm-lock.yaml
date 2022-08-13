@@ -30,6 +30,7 @@ specifiers:
   webpack: ^5.74.0
   webpack-cli: ^4.10.0
   webpack-dev-server: ^4.9.3
+  zustand: ^4.0.0
 
 dependencies:
   '@codemirror/lang-javascript': 6.0.2
@@ -48,6 +49,7 @@ dependencies:
   react-xul: 0.0.5
   tiny-glob: 0.2.9
   ts-loader: 9.3.1_xnp4kzegbjokq62cajex2ovgkm
+  zustand: 4.0.0_react@18.2.0
 
 devDependencies:
   '@codemirror/language': 6.2.1
@@ -2669,3 +2671,19 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  /zustand/4.0.0_react@18.2.0:
+    resolution: {integrity: sha512-OrsfQTnRXF1LZ9/vR/IqN9ws5EXUhb149xmPjErZnUrkgxS/gAHGy2dPNIVkVvoxrVe1sIydn4JjF0dYHmGeeQ==}
+    engines: {node: '>=12.7.0'}
+    peerDependencies:
+      immer: '>=9.0'
+      react: '>=16.8'
+    peerDependenciesMeta:
+      immer:
+        optional: true
+      react:
+        optional: true
+    dependencies:
+      react: 18.2.0
+      use-sync-external-store: 1.2.0_react@18.2.0
+    dev: false

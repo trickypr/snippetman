@@ -11,6 +11,9 @@ body {
   display: -moz-box;
   -moz-box-orient: vertical;
   -moz-box-flex: 1;
+
+  min-width: 50px;
+  min-height: 50px;
 }
 
 :root,

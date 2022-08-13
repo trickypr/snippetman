@@ -5,6 +5,7 @@ export function toTitleCase(str: string): string {
 
   return str
     .split(" ")
+    .filter((v) => v.length > 0)
     .map((w) => w[0].toUpperCase() + w.substring(1).toLowerCase())
     .join(" ");
 }

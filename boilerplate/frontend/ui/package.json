@@ -24,7 +24,8 @@
     "react-redux": "^8.0.2",
     "react-xul": "^0.0.5",
     "tiny-glob": "^0.2.9",
-    "ts-loader": "^9.3.1"
+    "ts-loader": "^9.3.1",
+    "zustand": "^4.0.0"
   },
   "devDependencies": {
     "@codemirror/language": "^6.2.1",

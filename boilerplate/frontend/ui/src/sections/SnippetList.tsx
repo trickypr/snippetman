@@ -1,19 +1,15 @@
 import React, { useRef, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+
 import { PrimaryFilter, PrimaryFilterType } from "../store/slicers/filter";
-import {
-  clearSnippet,
-  createSnippet,
-  deleteSnippet,
-  selectSnippet,
-  Snippet,
-} from "../store/slicers/snippets";
+import { Snippet } from "../store/snippets";
+import { useSnippetStore } from "../store/snippets";
 import { RootState } from "../store/store";
 
 import styles from "./SnippetList.module.css";
 
 function SnippetListItem({ snippet }: { snippet: Snippet }) {
-  const dispatch = useDispatch();
+  const deleteSnippet = useSnippetStore((state) => state.deleteSnippet);
   const contextMenuId = `${snippet.id}-context-menu`;
 
   return (
@@ -45,10 +41,7 @@ function SnippetListItem({ snippet }: { snippet: Snippet }) {
       />
 
       <menupopup id={contextMenuId}>
-        <menuitem
-          label="Delete"
-          onClick={() => dispatch(deleteSnippet(snippet.id))}
-        />
+        <menuitem label="Delete" onClick={() => deleteSnippet(snippet.id)} />
       </menupopup>
     </richlistitem>
   );
@@ -78,13 +71,14 @@ function textSearch(snippet: Snippet, filter: string): boolean {
 }
 
 export function SnippetList() {
-  const unfilteredSnippets = useSelector(
-    (state: RootState) => state.snippet.snippets
-  );
+  const unfilteredSnippets = useSnippetStore((store) => store.snippets);
   const filter = useSelector((state: RootState) => state.filter.primaryFilter);
 
+  const createSnippet = useSnippetStore((store) => store.createSnippet);
+  const clearSnippet = useSnippetStore((store) => store.clearSnippet);
+  const selectSnippet = useSnippetStore((store) => store.selectSnippet);
+
   const [search, setSearch] = useState("");
-  const dispatch = useDispatch();
 
   const snippets = unfilteredSnippets
     .filter((snippet) => primaryFilter(snippet, filter))
@@ -102,12 +96,7 @@ export function SnippetList() {
           value={search}
           onKeyUp={(e) => setSearch(e.target.value)}
         />
-        <button
-          onClick={() => {
-            dispatch(createSnippet());
-          }}
-          id={styles.addButton}
-        ></button>
+        <button onClick={() => createSnippet()} id={styles.addButton}></button>
       </hbox>
 
       <richlistbox
@@ -118,8 +107,8 @@ export function SnippetList() {
 
           const selectedIndex = (listBoxRef.current as any).selectedIndex;
 
-          if (selectedIndex === -1) return dispatch(clearSnippet());
-          dispatch(selectSnippet(snippets[selectedIndex].id));
+          if (selectedIndex === -1) return clearSnippet();
+          selectSnippet(snippets[selectedIndex].id);
         }}
         ref={listBoxRef}
       >

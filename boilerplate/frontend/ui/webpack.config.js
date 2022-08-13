@@ -75,4 +75,7 @@ export default {
   resolve: {
     extensions: [".ts", ".tsx", ".js"],
   },
+  experiments: {
+    topLevelAwait: true,
+  },
 };

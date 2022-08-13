@@ -1,3 +1,5 @@
+import { Snippet } from "../slicers/snippets";
+
 const { XPCOMUtils } = ChromeUtils.importESModule(
   "resource://gre/modules/XPCOMUtils.sys.mjs"
 );
@@ -52,7 +54,7 @@ export async function getSnippets(conn) {
 
 export async function saveSnippet(
   conn: { execute: (arg0: string, arg1: any[]) => any },
-  snippet: { id?: any; title?: any; code?: any; lang?: any; tags?: string[] }
+  snippet: Snippet
 ) {
   if (!conn) {
     return;

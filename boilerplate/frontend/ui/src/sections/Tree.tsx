@@ -5,6 +5,7 @@ import {
   PrimaryFilterType,
   setPrimaryFilter,
 } from "../store/slicers/filter";
+import { useSnippetStore } from "../store/snippets";
 import { RootState } from "../store/store";
 import { toTitleCase } from "../utils/primitives";
 
@@ -14,8 +15,12 @@ export function Tree() {
   const treeRef = useRef(null);
   const dispatch = useDispatch();
 
-  const languages = useSelector((state: RootState) => state.snippet.languages);
-  const tags = useSelector((state: RootState) => state.snippet.tags);
+  const languages = useSnippetStore((state) => [
+    ...new Set(state.snippets.map((snippet) => snippet.lang)),
+  ]);
+  const tags = useSnippetStore((state) => [
+    ...new Set(state.snippets.flatMap((snippet) => snippet.tags)),
+  ]);
 
   const currentFilter = useSelector(
     (state: RootState) => state.filter.primaryFilter

@@ -1,38 +1,27 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import CodeMirror from "@uiw/react-codemirror";
 import { darcula } from "@uiw/codemirror-theme-darcula";
-import ReactModal from "react-modal";
 
-import {
-  addTag,
-  changeSnippetCode,
-  changeSnippetLanguage,
-  removeTag,
-  renameSnippet,
-} from "../../store/slicers/snippets";
-import { RootState } from "../../store/store";
 import { getLanguageExtension } from "./languages";
 
 import styles from "./Snippet.module.css";
 import { supportedLanguages } from "../../store/sampleData/snippet";
+import { useSnippetStore } from "../../store/snippets";
 
 function SnippetInternals() {
-  const dispatch = useDispatch();
+  const selectedSnippet = useSnippetStore((state) =>
+    state.snippets.find((snippet) => snippet.id === state.selectedSnippetId)
+  );
 
-  const selectedSnippetId = useSelector(
-    (state: RootState) => state.snippet.selectedSnippetId
-  );
-  const selectedSnippet = useSelector((state: RootState) =>
-    state.snippet.snippets.find(
-      (snippet) => snippet.id === state.snippet.selectedSnippetId
-    )
-  );
+  const modifySnippet = useSnippetStore((state) => state.modifySnippet);
+
   const onChange = React.useCallback(
-    (value, viewUpdate) => {
-      dispatch(changeSnippetCode({ id: selectedSnippetId, code: value }));
-    },
-    [selectedSnippetId]
+    (value: string, _viewUpdate: never) =>
+      modifySnippet({
+        ...selectedSnippet,
+        code: value,
+      }),
+    [selectedSnippet]
   );
 
   const [languageExtension, setLanguageExtension] = useState(null);
@@ -46,20 +35,11 @@ function SnippetInternals() {
     })();
   }, [selectedSnippet]);
 
-  if (!selectedSnippetId) {
+  if (!selectedSnippet) {
     return (
       <>
         <h1>No selected snippet</h1>
         <p>Select a snippet to continue</p>
-      </>
-    );
-  }
-
-  if (!selectedSnippet) {
-    return (
-      <>
-        <h1>Selected snippet does not exist</h1>
-        <p>This is a bug, report it</p>
       </>
     );
   }
@@ -70,14 +50,9 @@ function SnippetInternals() {
         type="text"
         contentEditable
         value={selectedSnippet.title}
-        onKeyUp={(e) => {
-          dispatch(
-            renameSnippet({
-              id: selectedSnippetId,
-              title: (e.target as any).value,
-            })
-          );
-        }}
+        onKeyUp={(e) =>
+          modifySnippet({ ...selectedSnippet, title: (e.target as any).value })
+        }
       />
 
       <box>
@@ -92,7 +67,10 @@ function SnippetInternals() {
                     "url(chrome://global/skin/icons/close.svg) no-repeat center",
                 }}
                 onClick={() =>
-                  dispatch(removeTag({ id: selectedSnippetId, tag }))
+                  modifySnippet({
+                    ...selectedSnippet,
+                    tags: selectedSnippet.tags.filter((t) => t !== tag),
+                  })
                 }
               />
             </hbox>
@@ -104,9 +82,10 @@ function SnippetInternals() {
               name="New Tag"
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  dispatch(
-                    addTag({ id: selectedSnippetId, tag: e.target.value })
-                  );
+                  modifySnippet({
+                    ...selectedSnippet,
+                    tags: [...selectedSnippet.tags, e.target.value],
+                  });
                   setAddNewTag(null);
                 }
               }}
@@ -142,12 +121,10 @@ function SnippetInternals() {
                 label={lang}
                 value={lang}
                 onClick={(e) =>
-                  dispatch(
-                    changeSnippetLanguage({
-                      id: selectedSnippetId,
-                      lang: (e.target as any).value,
-                    })
-                  )
+                  modifySnippet({
+                    ...selectedSnippet,
+                    lang: (e.target as any).value,
+                  })
                 }
               />
             ))}
