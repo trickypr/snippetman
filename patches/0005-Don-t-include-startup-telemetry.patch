@@ -4,22 +4,6 @@ Date: Sun, 14 Aug 2022 19:50:35 +1000
 Subject: [PATCH] Don't include startup telemetry
 
 ---
- toolkit/components/moz.build                  |  1 -
- .../components/telemetry/TelemetryStartup.jsm | 46 -------------------
- 2 files changed, 47 deletions(-)
-
-diff --git a/toolkit/components/moz.build b/toolkit/components/moz.build
-index 438a1067169c..cfe403b4639c 100644
---- a/toolkit/components/moz.build
-+++ b/toolkit/components/moz.build
-@@ -70,7 +70,6 @@ DIRS += [
-     "shell",
-     "startup",
-     "statusfilter",
--    "telemetry",
-     "thumbnails",
-     "timermanager",
-     "tooltiptext",
 diff --git a/toolkit/components/telemetry/TelemetryStartup.jsm b/toolkit/components/telemetry/TelemetryStartup.jsm
 index 63450ab14e1a..a02be913ae7f 100644
 --- a/toolkit/components/telemetry/TelemetryStartup.jsm
