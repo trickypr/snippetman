@@ -4,7 +4,6 @@
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
 set -e
-set -o pipefail
 
 action=$1
 
