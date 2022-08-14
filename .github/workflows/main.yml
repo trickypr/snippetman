@@ -15,7 +15,7 @@ jobs:
       with:
         path: snippetman
       
-    - uses: actions/checkout@3v
+    - uses: actions/checkout@v3
       with:
         path: mozilla-centeral
         repository: mozilla/gecko-dev
