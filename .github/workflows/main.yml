@@ -34,10 +34,10 @@ jobs:
 
       - name: Build
         run: |
-          cd snippetman
+          cd mozilla-central
           ./mach build
 
       - name: Package
         run: |
-          cd snippetman
+          cd mozilla-central
           ./mach package
