@@ -4,6 +4,8 @@ import * as url from "url";
 import CopyPlugin from "copy-webpack-plugin";
 import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import TSReactRefresh from "react-refresh-typescript";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -12,7 +14,13 @@ export default (emv, argv) => {
   const prod = argv.mode === "production";
 
   return {
-    entry: "./src/main.tsx",
+    entry: {
+      main: "./src/main.tsx",
+      devtools: dev
+        ? "./src/devtools/development.ts"
+        : "./src/devtools/production.ts",
+    },
+    mode: "development",
     output: {
       path: resolve(__dirname, "dist"),
       filename: "[name].js",
@@ -44,7 +52,7 @@ export default (emv, argv) => {
         {
           test: /\.css$/,
           use: [
-            "style-loader",
+            MiniCssExtractPlugin.loader,
             {
               loader: "css-loader",
               options: {
@@ -57,7 +65,7 @@ export default (emv, argv) => {
         },
         {
           test: /\.css$/,
-          use: ["style-loader", "css-loader"],
+          use: [MiniCssExtractPlugin.loader, "css-loader"],
           exclude: /\.module\.css$/,
         },
       ],
@@ -74,6 +82,7 @@ export default (emv, argv) => {
       new CopyPlugin({
         patterns: [{ from: "public" }],
       }),
+      new MiniCssExtractPlugin(),
     ].filter(Boolean),
     resolve: {
       extensions: [".ts", ".tsx", ".js"],
@@ -85,6 +94,7 @@ export default (emv, argv) => {
     optimization: prod
       ? {
           usedExports: true,
+          minimizer: [new CssMinimizerPlugin()],
         }
       : {
           /* Dev is optimized */

@@ -15,6 +15,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>Snippetman</title>
+
+    <link rel="stylesheet" href="./main.css" />
   </head>
   <html:body
     xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
@@ -22,11 +24,6 @@
     <html:div id="root" flex="1"></html:div>
 
     <script src="./main.js"></script>
-
-    <script>
-      const { DevtoolsServer } = ChromeUtils.import(
-      "resource://app/modules/DevtoolsServer.jsm" ); const devtools =
-      DevtoolsServer.get(); devtools.start();
-    </script>
+    <script src="./devtools.js"></script>
   </html:body>
 </html>
