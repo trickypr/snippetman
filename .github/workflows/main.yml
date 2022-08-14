@@ -24,6 +24,9 @@ jobs:
       run: |
         echo $PWD/mozilla-central > snippetman/.moz-central
         # On linux add -r to each of the following commands
+        
+        tree .
+        
         ln -s -r snippetman/boilerplate mozilla-central/snippetman
         ln -s -r snippetman/snippetman-sym.mozconfig mozilla-central/.mozconfig
     
