@@ -6,6 +6,7 @@ import ReactRefreshPlugin from "@pmmmwh/react-refresh-webpack-plugin";
 import TSReactRefresh from "react-refresh-typescript";
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import TerserPlugin from "terser-webpack-plugin";
 
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 
@@ -20,7 +21,6 @@ export default (emv, argv) => {
         ? "./src/devtools/development.ts"
         : "./src/devtools/production.ts",
     },
-    mode: "development",
     output: {
       path: resolve(__dirname, "dist"),
       filename: "[name].js",
@@ -94,7 +94,7 @@ export default (emv, argv) => {
     optimization: prod
       ? {
           usedExports: true,
-          minimizer: [new CssMinimizerPlugin()],
+          minimizer: [new CssMinimizerPlugin(), new TerserPlugin()],
         }
       : {
           /* Dev is optimized */
