@@ -4,7 +4,7 @@ import { persist } from "zustand/middleware";
 
 import { kvStore } from "./persist/keyValue";
 
-export enum Language {
+export const enum Language {
   JSON = "json",
   JavaScript = "javascript",
   TypeScript = "typescript",

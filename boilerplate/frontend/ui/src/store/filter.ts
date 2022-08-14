@@ -1,10 +1,10 @@
 import create from "zustand";
 
-export enum PrimaryFilterType {
-  ALL = "all",
-  TAG = "tag",
-  LANG = "language",
-  HEADER = "header",
+export const enum PrimaryFilterType {
+  ALL,
+  TAG,
+  LANG,
+  HEADER,
 }
 
 export interface PrimaryFilter {
