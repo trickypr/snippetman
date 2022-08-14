@@ -2,41 +2,42 @@ name: Main Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        path: snippetman
-      
-    - uses: actions/checkout@v3
-      with:
-        path: mozilla-central
-        repository: mozilla/gecko-dev
 
-    - name: Setup
-      run: |
-        echo $PWD/mozilla-central > snippetman/.moz-central
-        # On linux add -r to each of the following commands        
-        ln -s -r snippetman/boilerplate mozilla-central/snippetman
-        ln -s -r snippetman/snippetman-sym.mozconfig mozilla-central/.mozconfig
-    
-    - name: Patch
-      run: |
-        cd snippetman
-        ./patches.sh import
-    
-    - name: Build
-      run: |
-        ./mach build
-    
-    - name: Package
-      run: |
-        ./mach package
-        
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          path: snippetman
+
+      - uses: actions/checkout@v3
+        with:
+          path: mozilla-central
+          repository: mozilla/gecko-dev
+
+      - name: Setup
+        run: |
+          echo $PWD/mozilla-central > snippetman/.moz-central
+          # On linux add -r to each of the following commands        
+          ln -s -r snippetman/boilerplate mozilla-central/snippetman
+          ln -s -r snippetman/snippetman-sym.mozconfig mozilla-central/.mozconfig
+
+      - name: Patch
+        run: |
+          cd snippetman
+          ./patches.sh import
+
+      - name: Build
+        run: |
+          cd snippetman
+          ./mach build
+
+      - name: Package
+        run: |
+          cd snippetman
+          ./mach package
