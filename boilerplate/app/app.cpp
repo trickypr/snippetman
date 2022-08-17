@@ -8,7 +8,7 @@
 
 using namespace mozilla;
 
-const char* kDesktopFolder = "browser";
+const char* kDesktopFolder = "snippet";
 
 // From what I can tell, this stores the result of bootstrapping to avoid
 // initing it multiple times
