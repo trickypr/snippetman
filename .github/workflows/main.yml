@@ -1,4 +1,4 @@
-name: Main Build
+name: CI Builds
 
 on:
   push:
@@ -7,7 +7,8 @@ on:
     branches: ["main"]
 
 jobs:
-  build:
+  linux:
+    name: Linux Builds
     runs-on: ubuntu-latest
 
     steps:
@@ -41,3 +42,13 @@ jobs:
         run: |
           cd mozilla-central
           ./mach package
+      
+      - name: Collect artifacts
+        run: |
+          mv newapp-sym/dist/snippetman-*.tar.bz2 snippetman.tar.bz2
+      
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3.1.0
+        with:
+          name: Linux
+          path: snippetman.tar.bz2
