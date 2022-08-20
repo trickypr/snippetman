@@ -21,6 +21,12 @@ jobs:
           path: mozilla-central
           repository: mozilla/gecko-dev
 
+      - name: Build UI
+        run: |
+          cd snippetman/boilerplate/frontend/ui
+          pnpm i
+          pnpm build
+
       - name: Setup
         run: |
           echo $PWD/mozilla-central > snippetman/.moz-central
