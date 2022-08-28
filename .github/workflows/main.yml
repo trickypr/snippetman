@@ -69,6 +69,13 @@ jobs:
     runs-on: macos-latest
 
     steps:
+      # There are bugs in python 3.10 which prevent firefox from building correctly. This should
+      # fix it for the moment until mozilla or Python fix it
+      - name: Hotfix for bug 1766497 & 1786419
+        run: |
+          brew unlink python@3.10
+          brew link python@3.9
+    
       - uses: pnpm/action-setup@v2.2.2
         with:
           run_install: false
