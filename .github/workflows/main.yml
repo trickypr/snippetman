@@ -72,11 +72,10 @@ jobs:
       # There are bugs in python 3.10 which prevent firefox from building correctly. This should
       # fix it for the moment until mozilla or Python fix it
       - name: Hotfix for bug 1766497 & 1786419
-        run: |
-          brew uninstall --force --ignore-dependencies python@3.10
-          brew cleanup -s python@3.10
-          brew cleanup --prune-prefix
-          brew link python@3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9' 
+
     
       - uses: pnpm/action-setup@v2.2.2
         with:
