@@ -73,7 +73,9 @@ jobs:
       # fix it for the moment until mozilla or Python fix it
       - name: Hotfix for bug 1766497 & 1786419
         run: |
-          brew unlink python@3.10
+          brew uninstall --force python@3.10
+          brew cleanup -s python@3.10
+          brew cleanup --prune-prefix
           brew link python@3.9
     
       - uses: pnpm/action-setup@v2.2.2
