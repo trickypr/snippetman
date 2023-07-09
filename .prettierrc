@@ -1,0 +1,12 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": "static/defaults/preferences/*.js",
+      "options": {
+        "semi": true
+      }
+    }
+  ]
+}

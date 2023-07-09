@@ -7,59 +7,24 @@ A proof of concept gecko application for managing code snippets.
     <img src="./assets/sketch_light.svg"  />
 </picture>
 
-## Building
+## Development
 
-First, create a folder to house your application for development:
+First, download a build of quark runtime from [the Github actions page](https://github.com/quark-platform/runtime/actions/workflows/main.yml). This project currently supports the `115.0.1`, although versioning doesn't exist for Quark yet. Extract the binary into a folder called `runtime`, such that `runtime/quark-runtime` exists.
 
-```bash
-mkdir cleandir
-cd cleandir
+Install webpack & dependencies:
+
+```sh
+pnpm i
 ```
 
-Then clone the firefox source code, either via `git clone`:
+Start a webpack dev server in one terminal
 
-```bash
-git clone --depth 1 https://github.com/mozilla/gecko-dev mozilla-central
+```sh
+pnpm dev
 ```
 
-Clone this repository:
+Launch the app in a new terminal:
 
-```bash
-git clone https://github.com/trickypr/snippetman
-```
-
-Keep track of the location of `mozilla-central`:
-
-```bash
-echo $PWD/mozilla-central > snippetman/.moz-central
-```
-
-Now, we need to add our app to the gecko source code:
-
-```bash
-# On linux add -r to each of the following commands
-ln -s snippetman/boilerplate mozilla-central/snippetman
-ln -s snippetman/snippetman-sym.mozconfig mozilla-central/.mozconfig
-```
-
-Apply custom patches:
-
-```bash
-cd snippetman
-./patches.sh import
-cd ..
-```
-
-Configure and build your application:
-
-```bash
-cd mozilla-central
-./mach configure
-./mach build
-```
-
-Then run it:
-
-```bash
-./mach run
+```sh
+pnpm start
 ```
