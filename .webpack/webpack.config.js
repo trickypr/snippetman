@@ -1,20 +1,18 @@
-import { resolve, dirname } from 'path'
+import { resolve } from 'path'
 import * as url from 'url'
-import { createRequire } from 'node:module'
 
 import CopyPlugin from 'copy-webpack-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import preprocess from 'svelte-preprocess'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 import devSettings from './dev.js'
 import prodSettings from './prod.js'
 
-const require = createRequire(import.meta.url)
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url))
 
 export default (emv, argv) => {
   const dev = argv.mode === 'development'
-
-  console.log(dirname(require.resolve('svelte/package.json')))
 
   return {
     name: 'Client',
@@ -28,6 +26,7 @@ export default (emv, argv) => {
     },
     resolve: {
       alias: {
+        '~': resolve(__dirname, '..', 'src'),
         // svelte: resolve(__dirname, '..', 'node_modules', 'svelte'),
       },
       extensions: ['.ts', '.mjs', '.js', '.svelte'],
@@ -69,14 +68,28 @@ export default (emv, argv) => {
         {
           test: /\.css$/,
           use: [
-            'style-loader',
+            dev ? 'style-loader' : MiniCssExtractPlugin.loader,
             { loader: 'css-loader', options: { importLoaders: 1 } },
             'postcss-loader',
           ],
         },
+        {
+          test: /\.sql$/,
+          type: 'asset/inline',
+        },
       ],
     },
-    plugins: [new CopyPlugin({ patterns: [{ from: 'static' }] })],
+    plugins: [
+      // new CopyPlugin({ patterns: [{ from: 'static' }] }),
+      new HtmlWebpackPlugin({
+        title: 'SnippetMan',
+        template: 'src/index.html',
+      }),
+      new MiniCssExtractPlugin({
+        filename: '[name].css',
+        chunkFilename: '[id].css',
+      }),
+    ],
 
     experiments: {
       topLevelAwait: true,

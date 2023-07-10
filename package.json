@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "webpack serve --mode development",
+    "dev": "rm -rf dist && webpack serve --mode development",
     "build": "webpack --mode production",
     "start": "./runtime/quark-runtime ./app/application.ini"
   },
@@ -16,6 +16,8 @@
     "css-loader": "^6.7.1",
     "css-minimizer-webpack-plugin": "^4.0.0",
     "gecko-types": "github:quark-platform/gecko-types",
+    "html-webpack-plugin": "^5.5.3",
+    "mini-css-extract-plugin": "^2.7.6",
     "postcss": "^8.4.25",
     "postcss-load-config": "^4.0.1",
     "postcss-loader": "^7.3.3",
@@ -30,5 +32,17 @@
     "webpack": "^5.88.1",
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^4.9.3"
+  },
+  "dependencies": {
+    "@codemirror/lang-javascript": "^6.1.9",
+    "@codemirror/language": "^6.8.0",
+    "@codemirror/state": "^6.2.1",
+    "@codemirror/view": "^6.14.1",
+    "@lezer/highlight": "^1.1.6",
+    "codemirror": "^6.0.1",
+    "fp-ts": "^2.16.0",
+    "nanoid": "^4.0.2",
+    "svelte-codemirror-editor": "^1.1.0",
+    "thememirror": "^2.0.1"
   }
 }
