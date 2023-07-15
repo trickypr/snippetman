@@ -75,7 +75,7 @@ export default (emv, argv) => {
         },
         {
           test: /\.sql$/,
-          type: 'asset/inline',
+          type: 'asset/source',
         },
       ],
     },

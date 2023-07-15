@@ -39,7 +39,7 @@
     <div
       role="listbox"
       hidden={!open}
-      class="bg-slate-700 w-min p-1 rounded-md absolute top-1 shadow-md"
+      class="bg-slate-700 w-min p-1 rounded-md absolute top-1 shadow-md z-50"
     >
       {#each options as option}
         <div

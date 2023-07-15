@@ -8,7 +8,7 @@
 </script>
 
 <div
-  class="text-xs text-slate-300"
+  class="text-xs text-slate-300 cursor-pointer"
   on:click={() => (open = !open)}
   on:keydown={(e) => {
     if (e.key === 'Enter') {

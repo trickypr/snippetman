@@ -1,11 +1,12 @@
 <script lang="ts">
-  import type { Languages } from '~/store/snippets'
+  import { type Snippet } from '~/store/snippets'
+  import { getSnippetTags, type Tag } from '~/store/tags'
 
-  export let name: string
-  export let tags: string[]
-  export let lang: Languages
-
+  export let snippet: Snippet
   export let selected: boolean = false
+  export let tags: Tag[] = []
+
+  $: (async () => (tags = await getSnippetTags(snippet.id)))()
 </script>
 
 <div
@@ -13,13 +14,15 @@
   data-selected={selected}
 >
   <div class="flex justify-between items-start">
-    <h3 class="text-lg font-bold -mb-1">{name}</h3>
+    <h3 class="text-lg font-bold -mb-1">{snippet.id}</h3>
     <!-- TODO: Use language icon here -->
-    <div>{lang}</div>
+    <div>{snippet.language}</div>
   </div>
 
   <span
     class="text-sm text-slate-400 group-data-[selected=true]:text-cyan-500 saturate-50"
-    >{tags.join(', ')}</span
+    >{tags.length == 0
+      ? 'No tags'
+      : tags.map((tag) => tag.name).join(', ')}</span
   >
 </div>

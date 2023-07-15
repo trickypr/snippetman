@@ -3,22 +3,14 @@ let lazy: any = {}
   Sqlite: 'resource://gre/modules/Sqlite.sys.mjs',
 })
 
-let locked: Record<string, boolean> = {}
+export const snippetsStore = await lazy.Sqlite.openConnection({
+  path: 'snippets.sqlite',
+})
 
-export async function openDb(
-  databaseName: string
-): Promise<{ unlock: () => void; db: any }> {
-  if (!(databaseName in locked)) locked[databaseName] = false
-  while (locked[databaseName]) await new Promise((r) => setTimeout(r, 100))
-  locked[databaseName] = true
-
-  const db = await lazy.Sqlite.openConnection({ path: databaseName })
-
-  return {
-    unlock: () => {
-      db.close()
-      locked[databaseName] = false
-    },
-    db,
+await snippetsStore.executeTransaction(async () => {
+  const createTable = await import('./sql/00_create_snippet_table.sql')
+  for (const statement of createTable.default.split(';')) {
+    if (statement.trim() === '') continue
+    await snippetsStore.execute(statement)
   }
-}
+})

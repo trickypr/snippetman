@@ -1,64 +1,69 @@
-import { get } from 'svelte/store'
-
-import { currentTag, search, type Filter } from './appState'
-import snippetSQL from './sql/00_create_snippet_table.sql'
-import { openDb } from './sqlite'
+import { snippets } from './appState'
+import { snippetsStore } from './sqlite'
 
 export const languages = ['json', 'js', 'ts', 'html', 'cpp', 'md'] as const
 export type Languages = (typeof languages)[number]
 
-export interface Sippet {
-  id: string
+export interface Snippet {
+  id: number
 
   title: string
   description?: string
-  tags: string[]
-
-  language: Languages
   code: string
+  language: Languages
 }
 
-function sqlQueryFromFilter(filter: Filter): [string, string[]] {
-  switch (filter.type) {
-    case 'language':
-      return [' AND language = ?', [filter.value]]
-    case 'tag':
-      return [' AND tags LIKE ?', [filter.value]]
-    case 'none':
-      return ['', []]
+function snippetFromRow(row: mozIStorageRowType): Snippet {
+  const id = row.getResultByName('id')
+  const title = row.getResultByName('title')
+  const description = row.getResultByName('description')
+  const code = row.getResultByName('code')
+  const language = row.getResultByName('language')
+
+  return {
+    id,
+    title,
+    description,
+    code,
+    language,
   }
 }
 
-function sqlSearchFromSearch(search: string): [string, string[]] {
-  return [
-    '(title LIKE ? OR description LIKE ? OR code LIKE ? OR tags LIKE ?)',
-    [search, search, search, search],
-  ]
+export function longLanguage(language: Languages): string {
+  switch (language) {
+    case 'json':
+      return 'JSON'
+    case 'js':
+      return 'JavaScript'
+    case 'ts':
+      return 'TypeScript'
+    case 'html':
+      return 'HTML'
+    case 'cpp':
+      return 'C++'
+    case 'md':
+      return 'Markdown'
+  }
 }
 
-async function getSnippetDb() {
-  const { db, unlock } = await openDb('snippets')
-  await db.exec(snippetSQL)
-  return { db, unlock }
-}
-
-async function getStateSnippets() {
-  const { db, unlock } = await getSnippetDb()
-
-  const [searchQuery, searchOptions] = sqlSearchFromSearch(get(search))
-  const [tagQuery, tagOptions] = sqlQueryFromFilter(get(currentTag))
-  const snippets = await db.query(
-    `SELECT * FROM snippets WHERE ${searchQuery}${tagQuery}`,
-    [...searchOptions, ...tagOptions]
+export async function createSnippet() {
+  await snippetsStore.execute(
+    'INSERT INTO snippets (title, language, code) VALUES (?, ?, ?)',
+    ['Untitled', 'js', 'console.log("Hello, world!")']
   )
-  unlock()
 
-  console.log(snippets)
-  return snippets
+  const lastSnippet = await snippetsStore.execute(
+    'SELECT * FROM snippets ORDER BY id DESC LIMIT 1'
+  )
+  console.log(lastSnippet, lastSnippet[0].getResultByName('id'))
+
+  snippets.update((snippets) => [...snippets, snippetFromRow(lastSnippet)])
+
+  return lastSnippet
 }
 
-async function getTags() {
-  const { db, unlock } = await getSnippetDb()
-
-  const snippets = await db.query(`SELECT DISTINCT tags FROM snippets`)
+export async function getSnippets(): Promise<Snippet[]> {
+  return (await snippetsStore.execute('SELECT * FROM snippets')).map(
+    snippetFromRow
+  )
 }

@@ -1,7 +1,9 @@
 <script lang="ts">
-  import { languages } from '../store/snippets'
+  import { filter } from '~/store/appState'
+  import { languages, longLanguage } from '../store/snippets'
   import SidebarItem from './SidebarItem.svelte'
   import SidebarTitle from './SidebarTitle.svelte'
+  import { getTags } from '~/store/tags'
 
   let lazy: any = {}
   ;(ChromeUtils as any).defineESModuleGetters(lazy, {
@@ -9,20 +11,18 @@
       'resource://devtools/client/framework/browser-toolbox/Launcher.sys.mjs',
   })
 
-  function handleReloadClick(event: MouseEvent) {
-    window.location.reload()
-  }
+  let tags = getTags()
 
-  function handleOpenDevtoolsClick(event: MouseEvent) {
-    lazy.BrowserToolboxLauncher.init()
-  }
+  $: (async () => {
+    console.log('tags', await tags)
+  })()
 </script>
 
 <div
   class="bg-slate-800 p-2 w-48 h-full border-r border-r-slate-700"
   role="tree"
 >
-  <SidebarItem>All</SidebarItem>
+  <SidebarItem on:command={() => ($filter = { type: 'none' })}>All</SidebarItem>
 
   <SidebarTitle title="Tag">
     <SidebarItem>Gecko</SidebarItem>
@@ -31,13 +31,22 @@
   </SidebarTitle>
 
   <SidebarTitle title="Language">
-    {#each languages as language}
-      <SidebarItem>{language}</SidebarItem>
+    {#each languages as value}
+      <SidebarItem
+        on:command={() => ($filter = { type: 'language', value })}
+        selected={$filter.type == 'language' && $filter.value == value}
+      >
+        {longLanguage(value)}
+      </SidebarItem>
     {/each}
   </SidebarTitle>
 
   <SidebarTitle title="Dev">
-    <SidebarItem on:click={handleReloadClick}>Reload</SidebarItem>
-    <SidebarItem on:click={handleOpenDevtoolsClick}>Open Devtools</SidebarItem>
+    <SidebarItem on:command={() => window.location.reload()}>
+      Reload
+    </SidebarItem>
+    <SidebarItem on:command={() => lazy.BrowserToolboxLauncher.init()}>
+      Open Devtools
+    </SidebarItem>
   </SidebarTitle>
 </div>
