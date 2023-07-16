@@ -38,15 +38,15 @@
   <div class="relative">
     <div
       role="listbox"
+      tabindex="0"
       hidden={!open}
       class="bg-slate-700 w-min p-1 rounded-md absolute top-1 shadow-md z-50"
     >
       {#each options as option}
+        <!-- svelte-ignore a11y-interactive-supports-focus -->
         <div
           role="option"
-          tabindex="0"
           aria-selected={option.value == value}
-          data-selected={option.value == value}
           class="hover:bg-slate-800 px-2 py-1 rounded cursor-pointer aria-selected:bg-slate-800"
           on:click={() => (value = option.value)}
           on:keydown={(event) => {

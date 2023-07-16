@@ -1,5 +1,6 @@
 import { snippets } from './appState'
 import { snippetsStore } from './sqlite'
+import { getSnippetTags, type Tag } from './tags'
 
 export const languages = ['json', 'js', 'ts', 'html', 'cpp', 'md'] as const
 export type Languages = (typeof languages)[number]
@@ -55,15 +56,25 @@ export async function createSnippet() {
   const lastSnippet = await snippetsStore.execute(
     'SELECT * FROM snippets ORDER BY id DESC LIMIT 1'
   )
-  console.log(lastSnippet, lastSnippet[0].getResultByName('id'))
 
-  snippets.update((snippets) => [...snippets, snippetFromRow(lastSnippet)])
-
-  return lastSnippet
+  snippets.update((snippets) => [...snippets, snippetFromRow(lastSnippet[0])])
+  return snippetFromRow(lastSnippet[0])
 }
 
 export async function getSnippets(): Promise<Snippet[]> {
   return (await snippetsStore.execute('SELECT * FROM snippets')).map(
     snippetFromRow
   )
+}
+
+export async function getSnippet(
+  id: number
+): Promise<Snippet & { tags: Tag[] }> {
+  const result = await snippetsStore.execute(
+    'SELECT * FROM snippets WHERE id = ?',
+    [id]
+  )
+  const tags = await getSnippetTags(id)
+
+  return { ...snippetFromRow(result[0]), tags }
 }

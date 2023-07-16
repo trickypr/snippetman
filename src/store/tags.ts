@@ -1,3 +1,4 @@
+import { updateSnippets, updateTags } from './appState'
 import { snippetsStore } from './sqlite'
 
 export interface Tag {
@@ -24,8 +25,37 @@ export async function getSnippetTags(snippetId: number): Promise<Tag[]> {
   ).map(tagFromRow)
 }
 
-export async function getTags() {
+export async function getTags(): Promise<Tag[]> {
   const tags = await snippetsStore.execute('SELECT * FROM tags')
-  console.log(tags)
-  return tags
+  return tags.map(tagFromRow)
+}
+
+export async function removeTag(
+  snippetId: number,
+  tagId: number
+): Promise<void> {
+  await snippetsStore.execute(
+    'DELETE FROM snippet_tags WHERE tag_id = ? AND snippet_id = ?',
+    [tagId, snippetId]
+  )
+  await updateSnippets()
+}
+
+export async function addTag(snippetId: number, tagId: number): Promise<void> {
+  await snippetsStore.execute(
+    'INSERT INTO snippet_tags (snippet_id, tag_id) VALUES (?, ?)',
+    [snippetId, tagId]
+  )
+  await updateSnippets()
+}
+
+export async function createTag(name: string): Promise<Tag> {
+  await snippetsStore.execute('INSERT INTO tags (name) VALUES (?)', [name])
+
+  const lastTag = await snippetsStore.execute(
+    'SELECT * FROM tags ORDER BY id DESC LIMIT 1'
+  )
+
+  await updateTags()
+  return tagFromRow(lastTag[0])
 }
