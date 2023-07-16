@@ -2,6 +2,7 @@ import type { Language } from '~/components/editor/languages'
 import { snippets } from './appState'
 import { snippetsStore } from './sqlite'
 import { getSnippetTags, type Tag } from './tags'
+import { get } from 'svelte/store'
 
 export interface Snippet {
   id: number
@@ -38,7 +39,10 @@ export async function createSnippet() {
     'SELECT * FROM snippets ORDER BY id DESC LIMIT 1'
   )
 
-  snippets.update((snippets) => [...snippets, snippetFromRow(lastSnippet[0])])
+  snippets.set([
+    ...get(snippets),
+    await getTagSnippet(snippetFromRow(lastSnippet[0])),
+  ])
   return snippetFromRow(lastSnippet[0])
 }
 
@@ -47,6 +51,17 @@ export async function getSnippets(): Promise<Snippet[]> {
     snippetFromRow
   )
 }
+
+export type TaggedSnippet = Snippet & { tags: Tag[] }
+export const getTagSnippet = async (
+  snippet: Snippet
+): Promise<TaggedSnippet> => ({
+  ...snippet,
+  tags: await getSnippetTags(snippet.id),
+})
+
+export const getTaggedSnippets = async (): Promise<TaggedSnippet[]> =>
+  await Promise.all((await getSnippets()).map(getTagSnippet))
 
 export async function getSnippet(
   id: number
@@ -60,7 +75,9 @@ export async function getSnippet(
   return { ...snippetFromRow(result[0]), tags }
 }
 
-export async function updateSnippet<T extends Snippet>(snippet: T): Promise<T> {
+export async function updateSnippet(
+  snippet: TaggedSnippet
+): Promise<TaggedSnippet> {
   await snippetsStore.execute(
     'UPDATE snippets SET title = ?, description = ?, code = ?, language = ? WHERE id = ?',
     [

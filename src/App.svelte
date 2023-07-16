@@ -1,10 +1,24 @@
 <script lang="ts">
-  import Sidebar from './components/Sidebar.svelte'
+  import Sidebar from './components/sidebar/Sidebar.svelte'
   import SnippetCard from './components/SnippetCard.svelte'
   import Snippet from './components/Snippet.svelte'
 
-  import { openSnippetId, snippets } from './store/appState'
+  import {
+    languageFilter,
+    openSnippetId,
+    snippets,
+    tagFilters,
+  } from './store/appState'
   import { createSnippet } from './store/snippets'
+
+  $: filteredSnippets = $snippets.filter(
+    (snippet) =>
+      ($languageFilter == null || snippet.language == $languageFilter) &&
+      ($tagFilters.length == 0 ||
+        $tagFilters.every((fTag) =>
+          snippet.tags.some((tag) => tag.id == fTag.id)
+        ))
+  )
 </script>
 
 <div class="flex h-screen bg-slate-800">
@@ -19,7 +33,7 @@
     </div>
 
     <div class="grow">
-      {#each $snippets as snippet (snippet.id)}
+      {#each filteredSnippets as snippet (snippet.id)}
         <SnippetCard {snippet} />
       {/each}
     </div>

@@ -1,12 +1,8 @@
 <script lang="ts">
   import { openSnippetId } from '~/store/appState'
-  import { type Snippet } from '~/store/snippets'
-  import { getSnippetTags, type Tag } from '~/store/tags'
+  import type { TaggedSnippet } from '~/store/snippets'
 
-  export let snippet: Snippet
-  export let tags: Tag[] = []
-
-  $: (async () => (tags = await getSnippetTags(snippet.id)))()
+  export let snippet: TaggedSnippet
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -24,8 +20,9 @@
 
   <span
     class="text-sm text-slate-400 group-data-[selected=true]:text-cyan-500 saturate-50"
-    >{tags.length == 0
-      ? 'No tags'
-      : tags.map((tag) => tag.name).join(', ')}</span
   >
+    {snippet.tags.length == 0
+      ? 'No tags'
+      : snippet.tags.map((tag) => tag.name).join(', ')}
+  </span>
 </div>
