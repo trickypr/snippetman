@@ -10,4 +10,7 @@ export default {
       logging: 'verbose',
     },
   },
+  optimization: {
+    runtimeChunk: true,
+  },
 }

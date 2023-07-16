@@ -5,10 +5,22 @@ export default {
   devtool: 'source-map',
 
   optimization: {
+    runtimeChunk: true,
     usedExports: true,
     minimizer: [
-      new CssMinimizerPlugin(),
-      new TerserPlugin({ exclude: ['defaults/preferences/prefs.js'] }),
+      new CssMinimizerPlugin({
+        minimizerOptions: {
+          preset: ['default', { normalizeWhitespace: false }],
+        },
+      }),
+      new TerserPlugin({
+        exclude: ['defaults/preferences/prefs.js'],
+        terserOptions: {
+          format: {
+            semicolons: false,
+          },
+        },
+      }),
     ],
   },
 }
