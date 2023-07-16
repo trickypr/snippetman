@@ -2,12 +2,16 @@
   import SidebarItem from './SidebarItem.svelte'
   import SidebarTitle from './SidebarTitle.svelte'
 
-  import { languageFilter, tagFilters } from '~/store/appState'
+  import { languageFilter, snippets, tagFilters } from '~/store/appState'
   import { getTags } from '~/store/tags'
   import { languages, longLanguage } from '../editor/languages'
   import { initDevTools } from '~/utils/devtools'
 
   let tags = getTags()
+
+  $: usedLanguages = languages.filter((lang) =>
+    $snippets.some((snippet) => snippet.language == lang)
+  )
 </script>
 
 <div
@@ -36,7 +40,7 @@
   <SidebarTitle title="Language">
     <SidebarItem on:command={() => languageFilter.set(null)}>All</SidebarItem>
 
-    {#each languages as language}
+    {#each usedLanguages as language}
       <SidebarItem
         on:command={() => languageFilter.set(language)}
         selected={language == $languageFilter}
