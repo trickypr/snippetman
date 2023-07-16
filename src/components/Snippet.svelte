@@ -56,8 +56,13 @@
 
   <div>
     <Select
-      value={'html'}
+      value={snippet.language}
       options={languages.map((lang) => ({ value: lang, label: lang }))}
+      on:change={async (e) =>
+        (snippet = await updateSnippet({
+          ...snippet,
+          language: e.detail,
+        }))}
     />
 
     <span class="border-l border-l-slate-700 h-4 mx-1" />

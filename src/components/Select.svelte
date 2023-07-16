@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { _LastSession } from 'resource://app/modules/sessionstore/SessionStore.sys.mjs'
+  import { createEventDispatcher } from 'svelte'
   import { clickOutside } from '~/utils/clickOutside'
 
   export let value: string
@@ -7,6 +9,15 @@
   let open = false
 
   $: selectedOption = options.find((option) => option.value === value)
+
+  const dispatch = createEventDispatcher()
+
+  function setOption(newValue: string) {
+    value = newValue
+    open = false
+
+    dispatch('change', value)
+  }
 </script>
 
 <span
@@ -48,12 +59,9 @@
           role="option"
           aria-selected={option.value == value}
           class="hover:bg-slate-800 px-2 py-1 rounded cursor-pointer aria-selected:bg-slate-800"
-          on:click={() => (value = option.value)}
-          on:keydown={(event) => {
-            if (event.key === 'Enter') {
-              value = option.value
-            }
-          }}
+          on:click={() => setOption(option.value)}
+          on:keydown={(event) =>
+            event.key === 'Enter' && setOption(option.value)}
         >
           {option.label}
         </div>
