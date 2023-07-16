@@ -48,6 +48,7 @@
     "codemirror": "^6.0.1",
     "fp-ts": "^2.16.0",
     "fuse.js": "^6.6.2",
+    "material-icon-theme": "^4.29.0",
     "nanoid": "^4.0.2",
     "svelte-codemirror-editor": "^1.1.0",
     "thememirror": "^2.0.1"

@@ -1,5 +1,12 @@
 import type { LanguageSupport } from '@codemirror/language'
 
+import jsonIcon from 'material-icon-theme/icons/json.svg'
+import jsIcon from 'material-icon-theme/icons/javascript.svg'
+import tsIcon from 'material-icon-theme/icons/typescript.svg'
+import htmlIcon from 'material-icon-theme/icons/html.svg'
+import cppIcon from 'material-icon-theme/icons/cpp.svg'
+import mdIcon from 'material-icon-theme/icons/markdown.svg'
+
 export const languages = ['json', 'js', 'ts', 'html', 'cpp', 'md'] as const
 export type Language = (typeof languages)[number]
 
@@ -41,4 +48,17 @@ export async function getCodemirrorLanguage(
       const { markdown } = await import('@codemirror/lang-markdown')
       return markdown()
   }
+}
+
+const languageIcons = Object.freeze({
+  json: jsonIcon,
+  js: jsIcon,
+  ts: tsIcon,
+  html: htmlIcon,
+  cpp: cppIcon,
+  md: mdIcon,
+} as const)
+
+export function getLanguageIcon(language: Language): string {
+  return languageIcons[language]
 }

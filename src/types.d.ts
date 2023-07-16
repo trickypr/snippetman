@@ -3,3 +3,4 @@
 
 declare module '*.module.css'
 declare module '*.sql'
+declare module '*.svg'

@@ -1,8 +1,12 @@
 <script lang="ts">
   import { openSnippetId } from '~/store/appState'
   import type { TaggedSnippet } from '~/store/snippets'
+  import { getLanguageIcon, longLanguage } from './editor/languages'
+  import { language } from '@codemirror/language'
 
   export let snippet: TaggedSnippet
+
+  $: icon = getLanguageIcon(snippet.language)
 </script>
 
 <!-- svelte-ignore a11y-click-events-have-key-events -->
@@ -15,7 +19,13 @@
   <div class="flex justify-between items-start">
     <h3 class="text-lg font-bold -mb-1">{snippet.title}</h3>
     <!-- TODO: Use language icon here -->
-    <div>{snippet.language}</div>
+    <div>
+      <img
+        src={icon}
+        alt={`${longLanguage(snippet.language)} icon`}
+        class="w-4"
+      />
+    </div>
   </div>
 
   <span
