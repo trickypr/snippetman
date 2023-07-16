@@ -3,7 +3,7 @@
   import SnippetCard from './components/SnippetCard.svelte'
   import Snippet from './components/Snippet.svelte'
 
-  import { snippets } from './store/appState'
+  import { openSnippetId, snippets } from './store/appState'
   import { createSnippet } from './store/snippets'
 </script>
 
@@ -26,6 +26,8 @@
   </div>
 
   <div class="grow p-4 flex flex-col">
-    <Snippet />
+    {#if $openSnippetId != null}
+      <Snippet snippetId={$openSnippetId} />
+    {/if}
   </div>
 </div>

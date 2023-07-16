@@ -5,20 +5,54 @@
   import Tags from './tags/TagPicker.svelte'
   import Select from '~/components/Select.svelte'
 
-  import { openSnippetId } from '~/store/appState'
-  import { getSnippet, languages, type Snippet } from '~/store/snippets'
+  import {
+    getSnippet,
+    languages,
+    updateSnippet,
+    type Snippet,
+  } from '~/store/snippets'
   import { addTag, removeTag, type Tag } from '~/store/tags'
+  import { debounced } from '~/utils/debounce'
+
+  export let snippetId: number
 
   let snippet: (Snippet & { tags: Tag[] }) | null = null
-  $: (async () => (snippet = await getSnippet($openSnippetId)))()
+  let snippetName = ''
+  $: setup(snippetId)
+
+  const { debounced: titleDebounce, instant: updateTitle } = debounced(
+    500,
+    async () => {
+      snippet = await updateSnippet({
+        ...snippet,
+        title: snippetName,
+      })
+    }
+  )
+
+  async function setup(snippetId: number) {
+    snippet = await getSnippet(snippetId)
+    snippetName = snippet.title
+  }
 </script>
 
-{#if $openSnippetId == null}
-  <div class="h-full flex items-center content-center">
-    <h2 class="text-2xl font-bold text-center">No snippet selected</h2>
-  </div>
-{:else if snippet != null}
-  <h2 class="text-2xl font-bold">{snippet.title}</h2>
+{#if snippet != null}
+  <div
+    class="text-2xl font-bold"
+    contenteditable
+    role="textbox"
+    tabindex="0"
+    bind:textContent={snippetName}
+    on:keydown={(e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault()
+        e.target.blur()
+        return updateTitle()
+      }
+
+      titleDebounce()
+    }}
+  />
 
   <div>
     <Select

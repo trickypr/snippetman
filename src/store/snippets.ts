@@ -78,3 +78,22 @@ export async function getSnippet(
 
   return { ...snippetFromRow(result[0]), tags }
 }
+
+export async function updateSnippet<T extends Snippet>(snippet: T): Promise<T> {
+  await snippetsStore.execute(
+    'UPDATE snippets SET title = ?, description = ?, code = ?, language = ? WHERE id = ?',
+    [
+      snippet.title,
+      snippet.description,
+      snippet.code,
+      snippet.language,
+      snippet.id,
+    ]
+  )
+
+  snippets.update((snippets) =>
+    snippets.map((s) => (s.id === snippet.id ? snippet : s))
+  )
+
+  return snippet
+}
