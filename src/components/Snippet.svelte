@@ -5,19 +5,16 @@
   import Tags from './tags/TagPicker.svelte'
   import Select from '~/components/Select.svelte'
 
-  import {
-    getSnippet,
-    languages,
-    updateSnippet,
-    type Snippet,
-  } from '~/store/snippets'
+  import { getSnippet, updateSnippet, type Snippet } from '~/store/snippets'
   import { addTag, removeTag, type Tag } from '~/store/tags'
   import { debounced } from '~/utils/debounce'
+  import { languages } from './editor/languages'
 
   export let snippetId: number
 
   let snippet: (Snippet & { tags: Tag[] }) | null = null
   let snippetName = ''
+  let code = ''
   $: setup(snippetId)
 
   const { debounced: titleDebounce, instant: updateTitle } = debounced(
@@ -30,9 +27,14 @@
     }
   )
 
+  const { debounced: codeDebounce } = debounced(250, async () => {
+    snippet = await updateSnippet({ ...snippet, code })
+  })
+
   async function setup(snippetId: number) {
     snippet = await getSnippet(snippetId)
     snippetName = snippet.title
+    code = snippet.code
   }
 </script>
 
@@ -97,8 +99,12 @@
   </div>
 
   <div class="grow mt-4">
-    <!-- {#await import('./components/Editor.svelte') then Editor}
-      <Editor.default />
-    {/await} -->
+    {#await import('~/components/editor/Editor.svelte') then Editor}
+      <Editor.default
+        language={snippet.language}
+        bind:code
+        on:change={(_) => codeDebounce()}
+      />
+    {/await}
   </div>
 {/if}

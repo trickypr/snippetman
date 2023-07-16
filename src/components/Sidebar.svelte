@@ -1,9 +1,10 @@
 <script lang="ts">
-  import { filter } from '~/store/appState'
-  import { languages, longLanguage } from '../store/snippets'
   import SidebarItem from './SidebarItem.svelte'
   import SidebarTitle from './SidebarTitle.svelte'
+
+  import { filter } from '~/store/appState'
   import { getTags } from '~/store/tags'
+  import { languages, longLanguage } from './editor/languages'
 
   let lazy: any = {}
   ;(ChromeUtils as any).defineESModuleGetters(lazy, {

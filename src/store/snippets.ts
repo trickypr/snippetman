@@ -1,9 +1,7 @@
+import type { Language } from '~/components/editor/languages'
 import { snippets } from './appState'
 import { snippetsStore } from './sqlite'
 import { getSnippetTags, type Tag } from './tags'
-
-export const languages = ['json', 'js', 'ts', 'html', 'cpp', 'md'] as const
-export type Languages = (typeof languages)[number]
 
 export interface Snippet {
   id: number
@@ -11,7 +9,7 @@ export interface Snippet {
   title: string
   description?: string
   code: string
-  language: Languages
+  language: Language
 }
 
 function snippetFromRow(row: mozIStorageRowType): Snippet {
@@ -27,23 +25,6 @@ function snippetFromRow(row: mozIStorageRowType): Snippet {
     description,
     code,
     language,
-  }
-}
-
-export function longLanguage(language: Languages): string {
-  switch (language) {
-    case 'json':
-      return 'JSON'
-    case 'js':
-      return 'JavaScript'
-    case 'ts':
-      return 'TypeScript'
-    case 'html':
-      return 'HTML'
-    case 'cpp':
-      return 'C++'
-    case 'md':
-      return 'Markdown'
   }
 }
 
