@@ -14,6 +14,8 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
+          run_install: false
+
       - name: Get pnpm store directory
         shell: bash
         run: |
@@ -26,6 +28,9 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
+
+      - name: Install
+        run: pnpm install
 
       - name: Build
         run: pnpm build
