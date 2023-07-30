@@ -2,128 +2,40 @@ name: CI Builds
 
 on:
   push:
-    branches: ['main']
+    branches: ['quark-runtime']
   pull_request:
-    branches: ['main']
+    branches: ['quark-runtime']
 
 jobs:
-  linux:
-    name: Linux Builds
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: pnpm/action-setup@v2.2.2
+      - uses: actions/checkout@v2
+      - name: Install pnpm and dependencies
+        uses: bahmutov/npm-install@v1
         with:
-          run_install: false
-          version: latest
-
-      - uses: actions/checkout@v3
+          npm_install: pnpm
+      - uses: pnpm/action-setup@v2
         with:
-          path: snippetman
+          version: 8
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
 
-      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        name: Setup pnpm cache
         with:
-          path: mozilla-central
-          repository: mozilla/gecko-dev
-
-      - name: Build UI
-        run: |
-          cd snippetman/boilerplate/frontend/ui
-          pnpm i
-          pnpm build
-
-      - name: Setup
-        run: |
-          echo $PWD/mozilla-central > snippetman/.moz-central
-          # On linux add -r to each of the following commands        
-          ln -s -r snippetman/boilerplate mozilla-central/snippetman
-          ln -s -r snippetman/snippetman-sym.mozconfig mozilla-central/.mozconfig
-
-      - name: Patch
-        run: |
-          cd snippetman
-          ./patches.sh import
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: Build
-        run: |
-          cd mozilla-central
-          ./mach build
+        run: pnpm build
 
-      - name: Package
-        run: |
-          cd mozilla-central
-          ./mach package
-
-      - name: Collect artifacts
-        run: |
-          mv newapp-sym/dist/snippetman-*.tar.bz2 snippetman.tar.bz2
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3.1.0
+      - name: Upload no-runtime app artifact
+        uses: actions/upload-artifact@v3
         with:
-          name: Linux
-          path: snippetman.tar.bz2
-
-  macos:
-    name: MacOS Builds
-    runs-on: macos-latest
-
-    steps:
-      # There are bugs in python 3.10 which prevent firefox from building correctly. This should
-      # fix it for the moment until mozilla or Python fix it
-      - name: Hotfix for bug 1766497 & 1786419
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          run_install: false
-          version: latest
-
-      - uses: actions/checkout@v3
-        with:
-          path: snippetman
-
-      - uses: actions/checkout@v3
-        with:
-          path: mozilla-central
-          repository: mozilla/gecko-dev
-
-      - name: Build UI
-        run: |
-          cd snippetman/boilerplate/frontend/ui
-          pnpm i
-          pnpm build
-
-      - name: Setup
-        run: |
-          echo $PWD/mozilla-central > snippetman/.moz-central
-          # On linux add -r to each of the following commands        
-          ln -s snippetman/boilerplate mozilla-central/snippetman
-          ln -s snippetman/snippetman-sym.mozconfig mozilla-central/.mozconfig
-
-      - name: Patch
-        run: |
-          cd snippetman
-          ./patches.sh import
-
-      - name: Build
-        run: |
-          cd mozilla-central
-          ./mach build
-
-      - name: Package
-        run: |
-          cd mozilla-central
-          ./mach package
-
-      - name: Collect artifacts
-        run: |
-          mv newapp-sym/dist/snippetman-*.dmg snippetman.dmg
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v3.1.0
-        with:
-          name: MacOS
-          path: snippetman.tar.bz2
+          name: no-rt-app
+          path: app/
