@@ -1,9 +1,10 @@
 {
+  "plugins": ["prettier-plugin-tailwindcss"],
   "semi": false,
   "singleQuote": true,
   "overrides": [
     {
-      "files": "static/defaults/preferences/*.js",
+      "files": "app/defaults/preferences/*.js",
       "options": {
         "semi": true
       }

@@ -24,7 +24,7 @@
 <dialog
   bind:this={dialog}
   on:close={() => settingsOpen.set(false)}
-  class="bg-slate-700 p-2 rounded-2xl w-3/4 shadow-lg h-3/4 border border-slate-600 relative"
+  class="text-slate-100 bg-slate-700 p-2 rounded-2xl w-3/4 shadow-lg h-3/4 border border-slate-600 relative backdrop:bg-slate-900 backdrop:backdrop-blur-sm"
 >
   <h1 class="font-bold text-2xl -mt-1.5">Settings</h1>
 
