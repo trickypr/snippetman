@@ -1,6 +1,6 @@
 export function debounced(
   delay: number,
-  fn: () => void | Promise<void>
+  fn: () => void | Promise<void>,
 ): { debounced: () => void; instant: () => void } {
   let timerId: number | null = null
 

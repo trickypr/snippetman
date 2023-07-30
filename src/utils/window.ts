@@ -11,6 +11,6 @@ export function openDialog(url: string) {
       'titlebar',
       'close',
     ].join(','),
-    []
+    [],
   )
 }

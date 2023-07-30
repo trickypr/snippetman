@@ -19,7 +19,7 @@
 
   const isNotExistingTag = (tag: Tag) =>
     !existingTags.some((eTag) => eTag.id == tag.id)
-  const indexed = <T>(value: T, index: number) => ({
+  const indexed = <T,>(value: T, index: number) => ({
     ...value,
     index: index + 1,
   })
@@ -41,7 +41,7 @@
   ;(async () => (unfilteredTags = await getTags()))()
   $: filteredTags = fuseFilter(
     unfilteredTags.filter(isNotExistingTag),
-    search
+    search,
   ).map(indexed)
 </script>
 
@@ -60,7 +60,7 @@
         if (event.key === 'ArrowDown')
           return (selectedIndex = Math.min(
             selectedIndex + 1,
-            filteredTags.length
+            filteredTags.length,
           ))
 
         if (event.key === 'ArrowUp')

@@ -1,5 +1,4 @@
 {
-  "plugins": ["prettier-plugin-tailwindcss"],
   "semi": false,
   "singleQuote": true,
   "overrides": [
@@ -9,5 +8,10 @@
         "semi": true
       }
     }
+  ],
+  "plugins": [
+    "prettier-plugin-svelte",
+    "prettier-plugin-organize-imports",
+    "prettier-plugin-tailwindcss"
   ]
 }

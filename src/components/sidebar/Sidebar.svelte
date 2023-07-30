@@ -15,7 +15,7 @@
   let tags = getTags()
 
   $: usedLanguages = languages.filter((lang) =>
-    $snippets.some((snippet) => snippet.language == lang)
+    $snippets.some((snippet) => snippet.language == lang),
   )
 </script>
 

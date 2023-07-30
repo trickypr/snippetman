@@ -14,11 +14,11 @@ declare module 'tailwind-shades' {
 
   export default function shadesOf(
     hex: string,
-    halfShades: false
+    halfShades: false,
   ): Record<Shades, string>
 
   export default function shadesOf(
     hex: string,
-    halfShades: true
+    halfShades: true,
   ): Record<Shades | HalfShades, string>
 }

@@ -16,7 +16,7 @@ export type RGBColor = readonly [number, number, number]
 /*@__PURE__*/
 export function shadesOf(
   baseColor: RGBColor,
-  halfShades = false
+  halfShades = false,
 ): Record<number, RGBColor> {
   const black = [0, 0, 0] as const
   const white = [255, 255, 255] as const
@@ -77,10 +77,10 @@ export function hexToRgbArray(hex: string): RGBColor {
 function getColor(
   percentage: number,
   start: RGBColor,
-  end: RGBColor
+  end: RGBColor,
 ): RGBColor {
   return end.map((channel: number, index) =>
-    Math.round(channel + percentage * (start[index] - channel))
+    Math.round(channel + percentage * (start[index] - channel)),
   ) as MutableRGBColor
 }
 

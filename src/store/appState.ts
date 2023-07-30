@@ -1,33 +1,28 @@
 import { writable } from 'svelte/store'
 
-import { getTaggedSnippets, type Snippet } from './snippets'
-import {
-  clearPersist,
-  getPersistInt,
-  getPersistString,
-  setPersist,
-} from './xulstore'
-import type { Tag } from './tags'
 import { themeImports, type Theme } from '~/themes'
 import { hexToRgbArray } from '~/utils/tailwind-shades'
+import { getTaggedSnippets, type Snippet } from './snippets'
+import type { Tag } from './tags'
+import { clearPersist, getPersistInt, setPersist } from './xulstore'
 
 export const settingsOpen = writable(false)
 
 export const currentTheme = writable<Theme>(
   await themeImports[
     Services.prefs.getStringPref('snippetman.theme', 'Snippetman Dark')
-  ]()
+  ](),
 )
 
 export const tagFilters = writable<Tag[]>([])
 export const languageFilter = writable<string | null>(null)
 
 export const snippets = writable<(Snippet & { tags: Tag[] })[]>(
-  await getTaggedSnippets()
+  await getTaggedSnippets(),
 )
 
 export const openSnippetId = writable<number | null>(
-  getPersistInt('appState', 'openSnippetId')
+  getPersistInt('appState', 'openSnippetId'),
 )
 openSnippetId.subscribe((id) => {
   if (id === null) return clearPersist('appState', 'openSnippetId')
@@ -44,14 +39,14 @@ currentTheme.subscribe((theme) => {
   for (const [key, value] of Object.entries(theme.background)) {
     document.documentElement.style.setProperty(
       `--slate-${key}`,
-      hexToRgbArray(value).join(', ')
+      hexToRgbArray(value).join(', '),
     )
   }
 
   for (const [key, value] of Object.entries(theme.primary)) {
     document.documentElement.style.setProperty(
       `--cyan-${key}`,
-      hexToRgbArray(value).join(', ')
+      hexToRgbArray(value).join(', '),
     )
   }
 

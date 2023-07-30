@@ -7,7 +7,7 @@ export const getPersistInt = (component: string, key: string): number | null =>
 
 export const getPersistString = (
   component: string,
-  key: string
+  key: string,
 ): string | null =>
   Services.xulStore.hasValue(APP_HREF, component, key)
     ? Services.xulStore.getValue(APP_HREF, component, key)

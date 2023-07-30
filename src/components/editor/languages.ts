@@ -1,11 +1,11 @@
 import type { LanguageSupport } from '@codemirror/language'
 
-import jsonIcon from 'material-icon-theme/icons/json.svg'
-import jsIcon from 'material-icon-theme/icons/javascript.svg'
-import tsIcon from 'material-icon-theme/icons/typescript.svg'
-import htmlIcon from 'material-icon-theme/icons/html.svg'
 import cppIcon from 'material-icon-theme/icons/cpp.svg'
+import htmlIcon from 'material-icon-theme/icons/html.svg'
+import jsIcon from 'material-icon-theme/icons/javascript.svg'
+import jsonIcon from 'material-icon-theme/icons/json.svg'
 import mdIcon from 'material-icon-theme/icons/markdown.svg'
+import tsIcon from 'material-icon-theme/icons/typescript.svg'
 
 export const languages = ['json', 'js', 'ts', 'html', 'cpp', 'md'] as const
 export type Language = (typeof languages)[number]
@@ -28,7 +28,7 @@ export function longLanguage(language: Language): string {
 }
 
 export async function getCodemirrorLanguage(
-  language: Language
+  language: Language,
 ): Promise<LanguageSupport> {
   switch (language) {
     case 'json':

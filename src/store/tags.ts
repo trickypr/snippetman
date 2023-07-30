@@ -20,7 +20,7 @@ export async function getSnippetTags(snippetId: number): Promise<Tag[]> {
   return (
     await snippetsStore.execute(
       'SELECT tags.id, tags.name FROM tags JOIN snippet_tags ON tags.id = snippet_tags.tag_id WHERE snippet_tags.snippet_id = ?',
-      [snippetId]
+      [snippetId],
     )
   ).map(tagFromRow)
 }
@@ -32,11 +32,11 @@ export async function getTags(): Promise<Tag[]> {
 
 export async function removeTag(
   snippetId: number,
-  tagId: number
+  tagId: number,
 ): Promise<void> {
   await snippetsStore.execute(
     'DELETE FROM snippet_tags WHERE tag_id = ? AND snippet_id = ?',
-    [tagId, snippetId]
+    [tagId, snippetId],
   )
   await updateSnippets()
 }
@@ -44,7 +44,7 @@ export async function removeTag(
 export async function addTag(snippetId: number, tagId: number): Promise<void> {
   await snippetsStore.execute(
     'INSERT INTO snippet_tags (snippet_id, tag_id) VALUES (?, ?)',
-    [snippetId, tagId]
+    [snippetId, tagId],
   )
   await updateSnippets()
 }
@@ -53,7 +53,7 @@ export async function createTag(name: string): Promise<Tag> {
   await snippetsStore.execute('INSERT INTO tags (name) VALUES (?)', [name])
 
   const lastTag = await snippetsStore.execute(
-    'SELECT * FROM tags ORDER BY id DESC LIMIT 1'
+    'SELECT * FROM tags ORDER BY id DESC LIMIT 1',
   )
 
   await updateTags()

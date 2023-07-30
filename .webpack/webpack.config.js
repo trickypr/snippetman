@@ -1,10 +1,9 @@
 import { resolve } from 'path'
 import * as url from 'url'
 
-import CopyPlugin from 'copy-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import preprocess from 'svelte-preprocess'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import preprocess from 'svelte-preprocess'
 
 import devSettings from './dev.js'
 import prodSettings from './prod.js'

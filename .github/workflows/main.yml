@@ -2,9 +2,9 @@ name: CI Builds
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
 
 jobs:
   linux:
@@ -53,17 +53,17 @@ jobs:
         run: |
           cd mozilla-central
           ./mach package
-      
+
       - name: Collect artifacts
         run: |
           mv newapp-sym/dist/snippetman-*.tar.bz2 snippetman.tar.bz2
-      
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3.1.0
         with:
           name: Linux
           path: snippetman.tar.bz2
-      
+
   macos:
     name: MacOS Builds
     runs-on: macos-latest
@@ -74,14 +74,13 @@ jobs:
       - name: Hotfix for bug 1766497 & 1786419
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9' 
+          python-version: '3.9'
 
-    
       - uses: pnpm/action-setup@v2.2.2
         with:
           run_install: false
           version: latest
-          
+
       - uses: actions/checkout@v3
         with:
           path: snippetman
@@ -118,11 +117,11 @@ jobs:
         run: |
           cd mozilla-central
           ./mach package
-      
+
       - name: Collect artifacts
         run: |
           mv newapp-sym/dist/snippetman-*.dmg snippetman.dmg
-      
+
       - name: Upload artifact
         uses: actions/upload-artifact@v3.1.0
         with:

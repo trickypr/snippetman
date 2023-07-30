@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply px-3 py-1.5 rounded-xl;
+    @apply rounded-xl px-3 py-1.5;
   }
 
   .btn--solid {

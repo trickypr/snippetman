@@ -1,8 +1,8 @@
+import { get } from 'svelte/store'
 import type { Language } from '~/components/editor/languages'
 import { snippets } from './appState'
 import { snippetsStore } from './sqlite'
 import { getSnippetTags, type Tag } from './tags'
-import { get } from 'svelte/store'
 
 export interface Snippet {
   id: number
@@ -32,11 +32,11 @@ function snippetFromRow(row: mozIStorageRowType): Snippet {
 export async function createSnippet() {
   await snippetsStore.execute(
     'INSERT INTO snippets (title, language, code) VALUES (?, ?, ?)',
-    ['Untitled', 'js', 'console.log("Hello, world!")']
+    ['Untitled', 'js', 'console.log("Hello, world!")'],
   )
 
   const lastSnippet = await snippetsStore.execute(
-    'SELECT * FROM snippets ORDER BY id DESC LIMIT 1'
+    'SELECT * FROM snippets ORDER BY id DESC LIMIT 1',
   )
 
   snippets.set([
@@ -48,13 +48,13 @@ export async function createSnippet() {
 
 export async function getSnippets(): Promise<Snippet[]> {
   return (await snippetsStore.execute('SELECT * FROM snippets')).map(
-    snippetFromRow
+    snippetFromRow,
   )
 }
 
 export type TaggedSnippet = Snippet & { tags: Tag[] }
 export const getTagSnippet = async (
-  snippet: Snippet
+  snippet: Snippet,
 ): Promise<TaggedSnippet> => ({
   ...snippet,
   tags: await getSnippetTags(snippet.id),
@@ -64,11 +64,11 @@ export const getTaggedSnippets = async (): Promise<TaggedSnippet[]> =>
   await Promise.all((await getSnippets()).map(getTagSnippet))
 
 export async function getSnippet(
-  id: number
+  id: number,
 ): Promise<Snippet & { tags: Tag[] }> {
   const result = await snippetsStore.execute(
     'SELECT * FROM snippets WHERE id = ?',
-    [id]
+    [id],
   )
   const tags = await getSnippetTags(id)
 
@@ -76,7 +76,7 @@ export async function getSnippet(
 }
 
 export async function updateSnippet(
-  snippet: TaggedSnippet
+  snippet: TaggedSnippet,
 ): Promise<TaggedSnippet> {
   await snippetsStore.execute(
     'UPDATE snippets SET title = ?, description = ?, code = ?, language = ? WHERE id = ?',
@@ -86,11 +86,11 @@ export async function updateSnippet(
       snippet.code,
       snippet.language,
       snippet.id,
-    ]
+    ],
   )
 
   snippets.update((snippets) =>
-    snippets.map((s) => (s.id === snippet.id ? snippet : s))
+    snippets.map((s) => (s.id === snippet.id ? snippet : s)),
   )
 
   return snippet

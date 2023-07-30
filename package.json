@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "rm -rf dist && webpack serve --mode development",
     "build": "webpack --mode production",
-    "start": "./runtime/quark-runtime ./app/application.ini"
+    "start": "./runtime/quark-runtime ./app/application.ini",
+    "format": "prettier --plugin=prettier-plugin-svelte --plugin=prettier-plugin-organize-imports --plugin=prettier-plugin-tailwindcss --write ."
   },
   "devDependencies": {
     "@tsconfig/svelte": "^5.0.0",
@@ -21,6 +22,9 @@
     "postcss": "^8.4.26",
     "postcss-load-config": "^4.0.1",
     "postcss-loader": "^7.3.3",
+    "prettier": "^3.0.0",
+    "prettier-plugin-organize-imports": "^3.2.3",
+    "prettier-plugin-svelte": "^3.0.3",
     "prettier-plugin-tailwindcss": "^0.4.1",
     "style-loader": "^3.3.3",
     "svelte": "^4.0.5",

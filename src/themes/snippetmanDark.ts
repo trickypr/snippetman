@@ -1,5 +1,5 @@
-import { createTheme } from 'thememirror'
 import { tags as t } from '@lezer/highlight'
+import { createTheme } from 'thememirror'
 import type { Theme } from '.'
 
 export const code = createTheme({

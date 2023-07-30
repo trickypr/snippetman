@@ -33,10 +33,10 @@
         ($languageFilter == null || snippet.language == $languageFilter) &&
         ($tagFilters.length == 0 ||
           $tagFilters.every((fTag) =>
-            snippet.tags.some((tag) => tag.id == fTag.id)
-          ))
+            snippet.tags.some((tag) => tag.id == fTag.id),
+          )),
     ),
-    search
+    search,
   )
 </script>
 

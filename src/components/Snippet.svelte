@@ -24,7 +24,7 @@
         ...snippet,
         title: snippetName,
       })
-    }
+    },
   )
 
   const { debounced: codeDebounce } = debounced(250, async () => {
