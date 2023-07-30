@@ -11,10 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install pnpm and dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          npm_install: pnpm
       - uses: pnpm/action-setup@v2
         with:
           version: 8
