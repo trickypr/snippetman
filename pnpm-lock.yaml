@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@babel/runtime':
+    specifier: ^7.22.6
+    version: 7.22.6
   '@codemirror/lang-cpp':
     specifier: ^6.0.2
     version: 6.0.2
@@ -38,12 +41,12 @@ dependencies:
   '@steeze-ui/svelte-icon':
     specifier: ^1.5.0
     version: 1.5.0(svelte@4.0.5)
+  '@uiw/codemirror-theme-nord':
+    specifier: ^4.21.9
+    version: 4.21.9(@codemirror/language@6.8.0)(@codemirror/state@6.2.1)(@codemirror/view@6.14.1)
   codemirror:
     specifier: ^6.0.1
     version: 6.0.1(@lezer/common@1.0.3)
-  fp-ts:
-    specifier: ^2.16.0
-    version: 2.16.0
   fuse.js:
     specifier: ^6.6.2
     version: 6.6.2
@@ -118,6 +121,9 @@ devDependencies:
   ts-loader:
     specifier: ^9.4.4
     version: 9.4.4(typescript@5.1.6)(webpack@5.88.1)
+  ts-reset:
+    specifier: ^0.0.1
+    version: 0.0.1
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -165,6 +171,13 @@ packages:
       chalk: 2.4.2
       js-tokens: 4.0.0
     dev: true
+
+  /@babel/runtime@7.22.6:
+    resolution: {integrity: sha512-wDb5pWm4WDdF6LFUde3Jl8WzPA+3ZbxYqkC6xAXuD3irdEHN1k0NfTRrJD8ZD378SJ61miMLCqIOXYhd8x+AJQ==}
+    engines: {node: '>=6.9.0'}
+    dependencies:
+      regenerator-runtime: 0.13.11
+    dev: false
 
   /@codemirror/autocomplete@6.8.1(@codemirror/language@6.8.0)(@codemirror/state@6.2.1)(@codemirror/view@6.14.1)(@lezer/common@1.0.3):
     resolution: {integrity: sha512-HpphvDcTdOx+9R3eUw9hZK9JA77jlaBF0kOt2McbyfvY0rX9pnMoO8rkkZc0GzSbzhIY4m5xJ0uHHgjfqHNmXQ==}
@@ -625,6 +638,28 @@ packages:
     dependencies:
       '@types/yargs-parser': 21.0.0
     dev: true
+
+  /@uiw/codemirror-theme-nord@4.21.9(@codemirror/language@6.8.0)(@codemirror/state@6.2.1)(@codemirror/view@6.14.1):
+    resolution: {integrity: sha512-mf0YVkj0+r41TzybeVvf5WK4Poh51hc1uJaQq5YMMgtwBsgzX4qiq4PMehhqstwMhakLOcvPtjkkoHHrSQS85g==}
+    dependencies:
+      '@uiw/codemirror-themes': 4.21.9(@codemirror/language@6.8.0)(@codemirror/state@6.2.1)(@codemirror/view@6.14.1)
+    transitivePeerDependencies:
+      - '@codemirror/language'
+      - '@codemirror/state'
+      - '@codemirror/view'
+    dev: false
+
+  /@uiw/codemirror-themes@4.21.9(@codemirror/language@6.8.0)(@codemirror/state@6.2.1)(@codemirror/view@6.14.1):
+    resolution: {integrity: sha512-ndfka95Ax4LXQSPVtCXJC3Qu2ruhlWUB7PAj+qTeMZobYJdXRxDEm4jMl+/d5fN1ok3jivShQdNgIwvEIFf4lg==}
+    peerDependencies:
+      '@codemirror/language': '>=6.0.0'
+      '@codemirror/state': '>=6.0.0'
+      '@codemirror/view': '>=6.0.0'
+    dependencies:
+      '@codemirror/language': 6.8.0
+      '@codemirror/state': 6.2.1
+      '@codemirror/view': 6.14.1
+    dev: false
 
   /@webassemblyjs/ast@1.11.6:
     resolution: {integrity: sha512-IN1xI7PwOvLPgjcf180gC1bqn3q/QaOCwYUahIOhbYUu8KA/3tw2RT/T0Gidi1l7Hhj5D/INhJxiICObqpMu4Q==}
@@ -1860,10 +1895,6 @@ packages:
     resolution: {integrity: sha512-buRG0fpBtRHSTCOASe6hD258tEubFoRLb4ZNA6NxMVHNw2gOcwHo9wyablzMzOA5z9xA9L1KNjk/Nt6MT9aYow==}
     engines: {node: '>= 0.6'}
     dev: true
-
-  /fp-ts@2.16.0:
-    resolution: {integrity: sha512-bLq+KgbiXdTEoT1zcARrWEpa5z6A/8b7PcDW7Gef3NSisQ+VS7ll2Xbf1E+xsgik0rWub/8u0qP/iTTjj+PhxQ==}
-    dev: false
 
   /fraction.js@4.2.0:
     resolution: {integrity: sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==}
@@ -3299,6 +3330,10 @@ packages:
       resolve: 1.22.2
     dev: true
 
+  /regenerator-runtime@0.13.11:
+    resolution: {integrity: sha512-kY1AZVr2Ra+t+piVaJ4gxaFaReZVH40AKNo7UCX6W+dEwBo/2oZJzqfuN1qLq1oL45o56cPaTXELwrTh8Fpggg==}
+    dev: false
+
   /relateurl@0.2.7:
     resolution: {integrity: sha512-G08Dxvm4iDN3MLM0EsP62EDV9IuhXPR6blNz6Utcp7zyV3tr4HVNINt6MpaRWbxoOHT3Q7YN2P+jaHX8vUbgog==}
     engines: {node: '>= 0.10'}
@@ -3946,6 +3981,10 @@ packages:
       semver: 7.5.4
       typescript: 5.1.6
       webpack: 5.88.1(webpack-cli@5.1.4)
+    dev: true
+
+  /ts-reset@0.0.1:
+    resolution: {integrity: sha512-MAN3eAzO2T0hWXN4iHaH6YBFU9ZX9fMXkCPYPbgy+tHU4NLFOUbuBUgefl2122CuJ2WDP8DjrRg3NTS0LYd1WQ==}
     dev: true
 
   /tslib@2.6.0:

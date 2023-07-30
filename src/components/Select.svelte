@@ -3,8 +3,10 @@
   import { createEventDispatcher } from 'svelte'
   import { clickOutside } from '~/utils/clickOutside'
 
+  export let id: string | undefined = undefined
   export let value: string
   export let options: { value: string; label: string }[] = []
+  export let style: 'default' | 'darker' = 'default'
 
   let open = false
 
@@ -23,9 +25,12 @@
 <span
   use:clickOutside={{ enabled: open, cb: () => (open = false) }}
   class="inline-block"
+  {id}
 >
   <button
-    class="bg-slate-700 py-1 px-2 rounded-md flex"
+    class={`${
+      style == 'default' ? 'bg-slate-700' : 'bg-slate-800'
+    } py-1 px-2 rounded-md flex`}
     on:click={() => (open = !open)}
   >
     <span>
@@ -51,14 +56,20 @@
       role="listbox"
       tabindex="0"
       hidden={!open}
-      class="bg-slate-700 w-min p-1 rounded-md absolute top-1 shadow-md z-50"
+      class={`${
+        style == 'default' ? 'bg-slate-700' : 'bg-slate-800'
+      } w-min p-1 rounded-md absolute top-1 shadow-md z-50`}
     >
       {#each options as option}
         <!-- svelte-ignore a11y-interactive-supports-focus -->
         <div
           role="option"
           aria-selected={option.value == value}
-          class="hover:bg-slate-800 px-2 py-1 rounded cursor-pointer aria-selected:bg-slate-800"
+          class={`px-2 py-1 mb-1 last:mb-0 rounded cursor-pointer whitespace-nowrap ${
+            style == 'default'
+              ? 'aria-selected:bg-slate-800 hover:bg-slate-800'
+              : 'aria-selected:bg-slate-700 hover:bg-slate-700'
+          }`}
           on:click={() => setOption(option.value)}
           on:keydown={(event) =>
             event.key === 'Enter' && setOption(option.value)}

@@ -8,7 +8,7 @@
   import { getSnippet, updateSnippet, type Snippet } from '~/store/snippets'
   import { addTag, removeTag, type Tag } from '~/store/tags'
   import { debounced } from '~/utils/debounce'
-  import { languages } from './editor/languages'
+  import { languages, longLanguage } from './editor/languages'
 
   export let snippetId: number
 
@@ -59,7 +59,10 @@
   <div>
     <Select
       value={snippet.language}
-      options={languages.map((lang) => ({ value: lang, label: lang }))}
+      options={languages.map((lang) => ({
+        value: lang,
+        label: longLanguage(lang),
+      }))}
       on:change={async (e) =>
         (snippet = await updateSnippet({
           ...snippet,

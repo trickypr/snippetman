@@ -12,7 +12,7 @@
 <!-- svelte-ignore a11y-click-events-have-key-events -->
 <!-- svelte-ignore a11y-no-static-element-interactions -->
 <div
-  class="group cursor-pointer select-none p-2 data-[selected=true]:bg-cyan-950 data-[selected=true]:hover:bg-cyan-900 data-[selected=true]:text-cyan-100 hover:bg-slate-700 m-2 rounded-lg"
+  class="group cursor-pointer select-none p-2 data-[selected=true]:bg-cyan-900 data-[selected=true]:hover:bg-cyan-800 data-[selected=true]:text-cyan-100 hover:bg-slate-700 m-2 rounded-lg"
   data-selected={$openSnippetId == snippet.id}
   on:click={() => openSnippetId.set(snippet.id)}
 >

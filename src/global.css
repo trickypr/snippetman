@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-3 py-1.5 rounded-xl;
+  }
+
+  .btn--solid {
+    @apply bg-slate-600 hover:bg-slate-500;
+  }
+
+  .btn--text {
+    @apply hover:bg-slate-600;
+  }
+}

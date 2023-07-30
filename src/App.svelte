@@ -12,6 +12,7 @@
     tagFilters,
   } from './store/appState'
   import { createSnippet, type TaggedSnippet } from './store/snippets'
+  import Settings from './components/settings/Settings.svelte'
 
   let search = ''
 
@@ -67,3 +68,5 @@
     {/if}
   </div>
 </div>
+
+<Settings />

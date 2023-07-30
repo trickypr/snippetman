@@ -1,7 +1,7 @@
 <script lang="ts">
   import CodeMirror from 'svelte-codemirror-editor'
-  import snippetmanDark from '~/themes/snippetmanDark'
   import { getCodemirrorLanguage, type Language } from './languages'
+  import { currentTheme } from '~/store/appState'
 
   export let code: string
   export let language: Language
@@ -14,7 +14,7 @@
     bind:value={code}
     on:change
     {lang}
-    theme={snippetmanDark}
+    theme={$currentTheme.code}
     styles={{ '&': { height: '100%' } }}
     class="h-full border border-slate-700 rounded-lg overflow-clip"
   />
